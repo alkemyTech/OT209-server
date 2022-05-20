@@ -26,6 +26,8 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
+nb-configuration.xml
+
 !**/src/main/**/build/
 !**/src/test/**/build/
 
