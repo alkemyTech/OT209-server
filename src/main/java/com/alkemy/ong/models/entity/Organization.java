@@ -38,7 +38,9 @@ public class Organization {
     @Column(nullable = false)
     private Integer phone;
 
-
+    @NotEmpty(message = "Email cannot be null")
+    @Column(nullable = false)
+    private String email;
 
     @NotEmpty(message = "Welcome text cannot be null")
     @Column(nullable = false)
