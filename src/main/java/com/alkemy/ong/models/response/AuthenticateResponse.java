@@ -3,7 +3,17 @@
  */
 package com.alkemy.ong.models.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-public class UserReponse {
-    
+@AllArgsConstructor
+@Getter
+@Setter
+public class AuthenticateResponse {
+
+	private String email;
+	private String password;
+	
+	
 }
