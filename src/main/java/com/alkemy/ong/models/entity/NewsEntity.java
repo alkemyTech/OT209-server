@@ -68,5 +68,5 @@ public class NewsEntity {
 	private Timestamp timestamp;
 	
 	@Column(name = "soft_delete")
-	private Boolean softDelete = Boolean.FALSE;
+	private Boolean softDelete = Boolean.FALSE; 
 }

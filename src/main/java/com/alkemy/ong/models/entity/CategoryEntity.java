@@ -53,6 +53,6 @@ public class CategoryEntity {
 	
 	@Column(name = "soft_delete")
 	private Boolean softDelete = Boolean.FALSE;
-	
+	 
 	
 }
