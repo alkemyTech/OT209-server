@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .authorizeRequests()
 	        .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
 	        .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/organization/public").permitAll()
 	        //agregar autorizaciones a los endpoints pendientes en desarrollo
 	        .anyRequest()
 	        .authenticated()

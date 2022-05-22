@@ -10,5 +10,5 @@ public class DateOrganizationResponse {
     private String name;
     private String image;   
     private String address;
-    private Integer phone; 
+    private String phone; 
 }

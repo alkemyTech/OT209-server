@@ -4,6 +4,7 @@ package com.alkemy.ong.controller;
 import com.alkemy.ong.models.response.DateOrganizationResponse;
 import com.alkemy.ong.service.OrganizationService;
 import io.swagger.annotations.Api;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +22,7 @@ public class OrganizationController {
     @Autowired
     private OrganizationService organizationService;
     @GetMapping("/public")
-    public DateOrganizationResponse getOrganizationInfo(){
+    public List<DateOrganizationResponse> getOrganizationInfo(){
         return organizationService.getOrganizationInfo();
     }
 }
