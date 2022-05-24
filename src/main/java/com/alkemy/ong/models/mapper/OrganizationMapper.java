@@ -11,7 +11,7 @@ public class OrganizationMapper {
                 .name(ong.getName())
                 .image(ong.getImage())
                 .address(ong.getAddress())
-                .phone(ong.getPhone())                
+                .phone(String.valueOf(ong.getPhone()))                
                 .build();
     }
 }
