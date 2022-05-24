@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			throw new EmailAlreadyExistException(userRegister.getEmail());
 		}
 		
-		Set<Role> roleEntity = roleRepository.findByName(RoleEnum.USER.getRoleName());
-
+		Set<Role> roleEntity = roleRepository.findByName(RoleEnum.USER.getFullRoleName());
+		
 		User userEntity = userMapper.toEntity(userRegister, roleEntity);
 		
 		userEntity = userRepository.save(userEntity);

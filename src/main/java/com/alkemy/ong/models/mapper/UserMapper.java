@@ -3,6 +3,7 @@ TODO:Mappers
  */
 package com.alkemy.ong.models.mapper;
 
+import java.sql.Timestamp;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class UserMapper {
 		entity.setPassword(encoder.encode(userRequest.getPassword()));
 		entity.setRol(role);
 		entity.setSoftDelete(false);
+		entity.setTimestamp(new Timestamp(System.currentTimeMillis()));
 		return entity;
 	}
 	
