@@ -1,4 +1,4 @@
-package com.alkemy.ong.models.slide;
+package com.alkemy.ong.models.entity;
 
 
 import lombok.*;
