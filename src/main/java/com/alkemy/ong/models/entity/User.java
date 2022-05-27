@@ -27,13 +27,13 @@ import org.hibernate.annotations.SQLDelete;
 @NoArgsConstructor
 @Data
 @Entity
-@SQLDelete(sql = "UPDATE Category SET soft_delete = true WHERE id=?")
+@SQLDelete(sql = "UPDATE User SET soft_delete = true WHERE id=?")
 @FilterDef(
-        name = "deletedCategoryFilter",
+        name = "deletedUserFilter",
         parameters = @ParamDef(name = "isDeleted", type = "boolean")
 )
 @Filter(
-        name = "deletedCategoryFilter",
+        name = "deletedUserFilter",
         condition = "deleted = :isDeleted"
 )
 @Builder

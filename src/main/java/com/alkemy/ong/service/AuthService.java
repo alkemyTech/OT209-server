@@ -11,6 +11,6 @@ public interface AuthService {
 
 	public RegisterResponse register(RegisterRequest user);
 
-	public AuthenticateResponse login(String email, String password);
+	public AuthenticateResponse login(String email, String password) throws Exception;
      
 }

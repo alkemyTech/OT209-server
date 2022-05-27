@@ -1,11 +1,7 @@
-/*
-Filtro jwt
- */
 package com.alkemy.ong.auth.filter;
 
 
 import io.jsonwebtoken.Claims;
-import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.http.HttpHeaders;
 
 @Component
 public class JwtRequestFilters extends OncePerRequestFilter {
