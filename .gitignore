@@ -34,8 +34,3 @@ nb-configuration.xml
 ### VS Code ###
 .vscode/
 src/main/resources/application.properties
-
-### mati ###
-pom.xml
-/src/main/resources/application.properties
-src/main/resources/application.properties
