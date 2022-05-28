@@ -3,16 +3,12 @@
  */
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.models.request.RegisterRequest;
-import com.alkemy.ong.models.response.AuthenticateResponse;
-import com.alkemy.ong.models.response.RegisterResponse;
-
-import java.io.IOException;
+import com.alkemy.ong.models.request.UserRequest;
+import com.alkemy.ong.models.response.UserResponse;
 
 public interface UserService {
 
-	public RegisterResponse register(RegisterRequest user);
+        void delete(Long id);
+        public UserResponse update(Long id, UserRequest request);
 
-	public AuthenticateResponse login(String email, String password) throws Exception;
-	void send() throws IOException;
 }
