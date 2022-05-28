@@ -1,0 +1,6 @@
+amazonProperties:
+  endpointUrl: https://s3.us-east-1.amazonaws.com
+  accessKey: ${AMAZON_ACCESS_KEY}
+  secretKey: ${AMAZON_SECRET_KEY}
+  bucketName: ${AMAZON_BUCKET_NAME}
+  region: us-east-1
