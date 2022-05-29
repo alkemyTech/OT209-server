@@ -27,7 +27,7 @@ public class S3BucketStorageServiceImp implements S3BucketStorageService {
 	@Value("${amazonProperties.bucketName}")
 	private String bucketName;
 	
-	@Value("${multipartfile.maxsize}")
+	@Value("10485760")
 	private String imageMaxSize;
 
 	/**
