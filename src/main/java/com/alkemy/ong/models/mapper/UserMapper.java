@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 import com.alkemy.ong.models.entity.Role;
 import com.alkemy.ong.models.entity.User;
 import com.alkemy.ong.models.request.RegisterRequest;
-import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.response.RegisterResponse;
-import com.alkemy.ong.models.response.UserResponse;
 
 @Component
 public class UserMapper {
@@ -43,24 +41,4 @@ public class UserMapper {
 		registerResponse.setLastName(userEntity.getLastName());
 		return registerResponse;
 	}
-        
-        public User  userDtoEntity(User user, UserRequest request){
-            user.setEmail(request.getEmail());
-            user.setFirstName(request.getFirstName());
-            user.setLastName(request.getLastName());
-            user.setPassword(encoder.encode(request.getPassword()));
-            user.setPhoto(request.getPhoto());
-           return user;
-        }
-        public UserResponse convertTo(User user){
-            return UserResponse.builder()
-                    .email(user.getEmail())
-                    .firstName(user.getFirstName())
-                    .lastName(user.getLastName())
-                    .photo(user.getPhoto())                    
-                    .build();
-        }
-                
-                
-    
 }
