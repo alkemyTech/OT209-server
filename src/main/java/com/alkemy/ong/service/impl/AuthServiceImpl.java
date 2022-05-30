@@ -63,14 +63,14 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
 	@Override
 	public RegisterResponse register(RegisterRequest userRegister) {
 
-		if (userRepository.findByEmail(userRegister.getEmail()) != null)
+		if (userRepository.findByEmail(userRegister.getEmail()) != null) {
 			throw new EmailAlreadyExistException(userRegister.getEmail());
-
+		}
 		Set<Role> roleEntity = roleRepository.findByName(RoleEnum.ADMIN.getFullRoleName());
 
-		if (roleEntity.isEmpty())
+		if (roleEntity.isEmpty()) {
 			throw new NullPointerException();
-
+		}
 		User userEntity = userMapper.toEntity(userRegister, roleEntity);
 
 		userEntity = userRepository.save(userEntity);
