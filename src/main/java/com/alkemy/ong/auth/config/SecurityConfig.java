@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
                 .antMatchers(HttpMethod.GET, "/organization/public").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/user/{id}").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/user/{id}").permitAll()    
+                .antMatchers(HttpMethod.PATCH, "/user/{id}").permitAll()  
 	        /*agregar autorizaciones a los endpoints pendientes en desarrollo
 	         *EJEMPLO:
 	         * PARA TODOS:
@@ -68,6 +68,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .authenticated()
 	        .and()
 	        .httpBasic();
+	    /*                Agregar restriccion para categories
+        .antMatchers(HttpMethod.GET, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+        .antMatchers(HttpMethod.POST, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+        .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+        .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+	     */
+
 	  }
 
 }
