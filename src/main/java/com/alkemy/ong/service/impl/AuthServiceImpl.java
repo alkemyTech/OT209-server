@@ -42,7 +42,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 @Service
 public class AuthServiceImpl implements AuthService, UserDetailsService {
 
@@ -63,12 +62,12 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
 
 	@Override
 	public RegisterResponse register(RegisterRequest userRegister) {
-		
+
 		if (userRepository.findByEmail(userRegister.getEmail()) != null)
 			throw new EmailAlreadyExistException(userRegister.getEmail());
-		
+
 		Set<Role> roleEntity = roleRepository.findByName(RoleEnum.ADMIN.getFullRoleName());
-		
+
 		if (roleEntity.isEmpty())
 			throw new NullPointerException();
 
