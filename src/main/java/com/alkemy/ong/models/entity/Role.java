@@ -19,7 +19,13 @@ import java.time.LocalDateTime;
 @Entity
 public class Role {
 
-    @Id
+    public Role(String name, String description, Timestamp timestamp) {
+		this.setName(name);
+		this.setDescription(description);
+		this.setTimestamp(timestamp);
+	}
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
@@ -33,6 +39,7 @@ public class Role {
     @Column(name = "timestamp")
     private Timestamp timestamp;
 
+    
 
 
 
