@@ -3,6 +3,9 @@ Configuración de security
  */
 package com.alkemy.ong.auth.config;
 
+import com.alkemy.ong.auth.filter.JwtRequestFilters;
+import com.alkemy.ong.auth.service.OngUserDetailsService;
+import com.alkemy.ong.auth.utility.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,13 +19,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private OngUserDetailsService ongUserDetailsService;
+	@Autowired
+	private JwtRequestFilters filters;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -37,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(AuthenticationManagerBuilder managerBuilder) throws Exception {
-		managerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		managerBuilder.userDetailsService(ongUserDetailsService).passwordEncoder(passwordEncoder());
 	}
 	
 	@Override
@@ -55,10 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/organization/public").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/user/{id}").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/user/{id}").permitAll()
-				.antMatchers(HttpMethod.GET, "/news/*").permitAll()
-				.antMatchers(HttpMethod.POST, "/news").permitAll()
-				.antMatchers(HttpMethod.PUT, "/news/*").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/news/*").permitAll()
+				.antMatchers(HttpMethod.GET, "/news/*").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(HttpMethod.POST, "/news").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(HttpMethod.PUT, "/news/*").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(HttpMethod.DELETE, "/news/*").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 	        /*agregar autorizaciones a los endpoints pendientes en desarrollo
 	         *EJEMPLO:
 	         * PARA TODOS:
@@ -68,10 +74,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	         * PARA ADMIN:
 	         * .antMatchers(HttpMethod.<TIPO>, "<endpoint>").hasRole(RoleEnum.ADMIN.getSimpleRoleName);
             */
-	        .anyRequest()
-	        .authenticated()
+	        .anyRequest().authenticated()
 	        .and()
 	        .httpBasic();
+		http.addFilterBefore(filters, UsernamePasswordAuthenticationFilter.class);
 	    /*                Agregar restriccion para categories
         .antMatchers(HttpMethod.GET, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
         .antMatchers(HttpMethod.POST, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())

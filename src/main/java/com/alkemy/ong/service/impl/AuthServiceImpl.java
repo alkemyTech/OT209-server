@@ -1,6 +1,7 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.auth.filter.JwtUtil;
+import com.alkemy.ong.auth.service.OngUserDetailsService;
+import com.alkemy.ong.auth.utility.JwtUtil;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,6 +60,8 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
     public RegisterResponse register(RegisterRequest userRegister) {
@@ -71,23 +74,20 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         User userEntity = userMapper.toEntity(userRegister, roleEntity);
 
         userEntity = userRepository.save(userEntity);
-        RegisterResponse registerResponse = userMapper.toUserRegisterResponde(userEntity);
-        registerResponse.setToken(jwtUtil.generateTokenUser((UserDetails) userEntity));
-       
-        return registerResponse;
+        return userMapper.toUserRegisterResponde(userEntity);
     }
 
     @Override
     public AuthenticateResponse login(String email, String password) throws Exception {
         try {
-            Authentication authentication = authenticationManager.authenticate(
+            authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(email, password));
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            //SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-        return new AuthenticateResponse(email,password);
+        return new AuthenticateResponse(email,password, jwtUtil.generateToken(userDetailsService.loadUserByUsername(email)));
 
     }
 

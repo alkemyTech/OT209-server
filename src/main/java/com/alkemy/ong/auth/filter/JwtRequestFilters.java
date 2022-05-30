@@ -1,6 +1,7 @@
 package com.alkemy.ong.auth.filter;
 
 
+import com.alkemy.ong.auth.utility.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

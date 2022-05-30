@@ -1,4 +1,4 @@
-package com.alkemy.ong.auth.filter;
+package com.alkemy.ong.auth.utility;
 
 
 import io.jsonwebtoken.Claims;
@@ -49,16 +49,11 @@ public class JwtUtil {
         return extractExpiration(getToken(authorizationHeader)).before(new Date());
     }
 
-    public String generateTokenUser(UserDetails userDetails) {
-        User user = (User) userDetails;
-        return createToken(user.getFirstName(),user.getEmail());
-    }
     public String generateToken(UserDetails userDetails) {
-        User user = (User) userDetails;
-        final String authorites=userDetails.getAuthorities().stream()
+        final String authorities=userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
-        return createToken(user.getFirstName(),authorites);
+        return createToken(userDetails.getUsername(),authorities);
     }
 
     private String createToken(String subject, String role) {
