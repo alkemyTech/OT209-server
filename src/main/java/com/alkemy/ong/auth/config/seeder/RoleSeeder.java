@@ -24,8 +24,8 @@ public class RoleSeeder implements CommandLineRunner {
 	
 	private void loadRoles() {
 		if (roleRepository.count() == 0) {
-			roleRepository.save(new Role(RoleEnum.USER.getSimpleRoleName(),null,new Timestamp(System.currentTimeMillis())));
-			roleRepository.save(new Role(RoleEnum.ADMIN.getSimpleRoleName(),null,new Timestamp(System.currentTimeMillis())));
+			roleRepository.save(new Role(RoleEnum.USER.getFullRoleName(),null,new Timestamp(System.currentTimeMillis())));
+			roleRepository.save(new Role(RoleEnum.ADMIN.getFullRoleName(),null,new Timestamp(System.currentTimeMillis())));
 		}
 	}
 
