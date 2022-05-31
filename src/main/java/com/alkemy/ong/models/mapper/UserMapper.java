@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.alkemy.ong.models.entity.Role;
-import com.alkemy.ong.models.entity.User;
+import com.alkemy.ong.models.entity.RoleEntity;
+import com.alkemy.ong.models.entity.UserEntity;
 import com.alkemy.ong.models.request.RegisterRequest;
 import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.response.RegisterResponse;
@@ -23,8 +23,8 @@ public class UserMapper {
 	@Autowired
 	private PasswordEncoder encoder;
 
-	public User toEntity(RegisterRequest userRequest, Set<Role> role) {
-		User entity = new User();
+	public UserEntity toEntity(RegisterRequest userRequest, Set<RoleEntity> role) {
+		UserEntity entity = new UserEntity();
 		entity.setEmail(userRequest.getEmail());
 		entity.setFirstName(userRequest.getFirstName());
 		entity.setLastName(userRequest.getLastName());
@@ -35,7 +35,7 @@ public class UserMapper {
 		return entity;
 	}
 	
-	public RegisterResponse toUserRegisterResponde(User userEntity) {
+	public RegisterResponse toUserRegisterResponde(UserEntity userEntity) {
 		RegisterResponse registerResponse = new RegisterResponse();
 		registerResponse.setId(userEntity.getId());
 		registerResponse.setEmail(userEntity.getEmail());
@@ -44,7 +44,7 @@ public class UserMapper {
 		return registerResponse;
 	}
         
-        public User  userDtoEntity(User user, UserRequest request){
+        public UserEntity  userDtoEntity(UserEntity user, UserRequest request){
             user.setEmail(request.getEmail());
             user.setFirstName(request.getFirstName());
             user.setLastName(request.getLastName());
@@ -52,7 +52,7 @@ public class UserMapper {
             user.setPhoto(request.getPhoto());
            return user;
         }
-        public UserResponse convertTo(User user){
+        public UserResponse convertTo(UserEntity user){
             return UserResponse.builder()
                     .email(user.getEmail())
                     .firstName(user.getFirstName())

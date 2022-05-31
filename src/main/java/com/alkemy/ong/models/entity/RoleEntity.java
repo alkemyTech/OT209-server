@@ -13,9 +13,9 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity
-public class Role {
+public class RoleEntity {
 
-	public Role(String name, String description, Timestamp timestamp) {
+	public RoleEntity(String name, String description, Timestamp timestamp) {
 		this.setName(name);
 		this.setDescription(description);
 		this.setTimestamp(timestamp);
