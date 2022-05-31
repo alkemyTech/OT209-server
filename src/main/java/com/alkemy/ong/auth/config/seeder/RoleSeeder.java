@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.alkemy.ong.auth.utility.RoleEnum;
-import com.alkemy.ong.models.entity.Role;
+import com.alkemy.ong.models.entity.RoleEntity;
 import com.alkemy.ong.repository.RoleRepository;
 
 @Component
@@ -24,8 +24,8 @@ public class RoleSeeder implements CommandLineRunner {
 	
 	private void loadRoles() {
 		if (roleRepository.count() == 0) {
-			roleRepository.save(new Role(RoleEnum.USER.getFullRoleName(),null,new Timestamp(System.currentTimeMillis())));
-			roleRepository.save(new Role(RoleEnum.ADMIN.getFullRoleName(),null,new Timestamp(System.currentTimeMillis())));
+			roleRepository.save(new RoleEntity(RoleEnum.USER.getFullRoleName(),null,new Timestamp(System.currentTimeMillis())));
+			roleRepository.save(new RoleEntity(RoleEnum.ADMIN.getFullRoleName(),null,new Timestamp(System.currentTimeMillis())));
 		}
 	}
 
