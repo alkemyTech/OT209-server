@@ -5,12 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Table
@@ -19,21 +15,24 @@ import java.time.LocalDateTime;
 @Entity
 public class Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long id;
+	public Role(String name, String description, Timestamp timestamp) {
+		this.setName(name);
+		this.setDescription(description);
+		this.setTimestamp(timestamp);
+	}
 
-    @NonNull
-    @Column(nullable = false)
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private Long id;
 
-    private String Description;
+	@NonNull
+	@Column(nullable = false)
+	private String name;
 
-    @Column(name = "timestamp")
-    private Timestamp timestamp;
+	private String Description;
 
-
-
+	@Column(name = "timestamp")
+	private Timestamp timestamp;
 
 }
