@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public RegisterResponse register(RegisterRequest userRegister) {
 
-		if (userRepository.existsByEmail(userRegister.getEmail())) {
+		if (userRepository.existsByEmail(userRegister.getEmail())) { //@Adrián Fernández: Change findbyEmail to exists
 			throw new EmailAlreadyExistException(userRegister.getEmail());
 		}
 		Set<RoleEntity> roleEntity = roleRepository.findByName(RoleEnum.ADMIN.getFullRoleName());
