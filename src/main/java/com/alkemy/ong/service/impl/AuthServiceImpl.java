@@ -2,9 +2,6 @@ package com.alkemy.ong.service.impl;
 
 import java.io.IOException;
 import java.util.Set;
-
-
-
 import com.sendgrid.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
-
 import com.alkemy.ong.auth.security.JwtTokenProvider;
 import com.alkemy.ong.auth.utility.AuthenticationErrorEnum;
 import com.alkemy.ong.auth.utility.RoleEnum;
@@ -31,7 +27,6 @@ import com.alkemy.ong.service.AuthService;
 @Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
-
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -105,5 +100,4 @@ public class AuthServiceImpl implements AuthService {
 			throw ex;
 		}
 	}
-
 }
