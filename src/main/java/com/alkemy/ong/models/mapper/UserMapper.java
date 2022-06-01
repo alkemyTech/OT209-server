@@ -4,7 +4,9 @@ TODO:Mappers
 package com.alkemy.ong.models.mapper;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -60,7 +62,20 @@ public class UserMapper {
                     .photo(user.getPhoto())                    
                     .build();
         }
-                
-                
+
+		public UserResponse convertToAll(UserEntity user){
+			return UserResponse.builder()
+					.id(user.getId())
+					.email(user.getEmail())
+					.firstName(user.getFirstName())
+					.lastName(user.getLastName())
+					.photo(user.getPhoto())
+					.build();
+		}
+
+		public List<UserResponse> userEntityDtoList(List<UserEntity> entities){
+
+			return entities.stream().map(this::convertToAll).collect(Collectors.toList());
+		}
     
 }

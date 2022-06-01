@@ -1,7 +1,10 @@
 package com.alkemy.ong.service.impl;
 
 import java.util.Set;
+
+import com.alkemy.ong.models.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +24,7 @@ import com.alkemy.ong.models.response.RegisterResponse;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.AuthService;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -44,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public RegisterResponse register(RegisterRequest userRegister) {
 
-		if (userRepository.findByEmail(userRegister.getEmail()) != null) {
+		if (userRepository.existsByEmail(userRegister.getEmail())) {
 			throw new EmailAlreadyExistException(userRegister.getEmail());
 		}
 		Set<RoleEntity> roleEntity = roleRepository.findByName(RoleEnum.ADMIN.getFullRoleName());
@@ -70,5 +74,18 @@ public class AuthServiceImpl implements AuthService {
 		} catch (Exception e) {
 			return new AuthenticateResponse(AuthenticationErrorEnum.OK.name(), AuthenticationErrorEnum.FALSE.name());
 		}
+	}
+
+	@Override
+	public UserResponse userAuth(String token) {
+		token = token.replace("Bearer ", "");
+		String email = jwtTokenProvider.getJWTUsername(token);
+
+		UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+				"the searched user does not exist"));
+		return userMapper.convertTo(userEntity);
+
+
+
 	}
 }
