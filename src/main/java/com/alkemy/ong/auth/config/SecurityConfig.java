@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	  protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.exceptionHandling()
-			.authenticationEntryPoint(jwtAuthEntryPoint)
+			//.authenticationEntryPoint(jwtAuthEntryPoint)
 			.and()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -74,10 +74,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .antMatchers(HttpMethod.POST, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 	        .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 	        .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-			.antMatchers(HttpMethod.GET, "/news/*").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+			.antMatchers(HttpMethod.GET, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 			.antMatchers(HttpMethod.POST, "/news").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-			.antMatchers(HttpMethod.PUT, "/news/*").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-			.antMatchers(HttpMethod.DELETE, "/news/*").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+			.antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+			.antMatchers(HttpMethod.DELETE, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 	        /*agregar autorizaciones a los endpoints pendientes en desarrollo
 	         *EJEMPLO:
 	         * PARA TODOS:
@@ -91,5 +91,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authenticated();
     		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	  }
-
 }
