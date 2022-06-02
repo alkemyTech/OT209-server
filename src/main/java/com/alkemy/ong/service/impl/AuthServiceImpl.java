@@ -1,8 +1,11 @@
 package com.alkemy.ong.service.impl;
 
+import java.io.IOException;
 import java.util.Set;
 
 import com.alkemy.ong.models.response.UserResponse;
+import com.sendgrid.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +29,7 @@ import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.AuthService;
 import org.springframework.web.server.ResponseStatusException;
 
+@Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -87,5 +91,32 @@ public class AuthServiceImpl implements AuthService {
 
 
 
+	}
+	public String sendTextEmail() throws IOException {
+		/*
+		 * The sender email should be the same as we used to Create a Single Sender
+		 * Verification
+		 */
+		log.info("entrando a sendTextEmail");
+		Email from = new Email("mdlprofesional@gmail.com");
+		String subject = "Maximiliano";
+		Email to = new Email("mdlprofesional@gmail.com");
+		Content content = new Content("text/plain", "This is a test");
+		Mail mail = new Mail(from, subject, to, content);
+
+		log.info("antes");
+		SendGrid sg = new SendGrid("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");
+		log.info("despues");
+		Request request = new Request();
+		try {
+			request.setMethod(Method.POST);
+			request.setEndpoint("mail/send");
+			request.setBody(mail.build());
+			Response response = sg.api(request);
+			log.info(response.getBody());
+			return response.getBody();
+		} catch (IOException ex) {
+			throw ex;
+		}
 	}
 }
