@@ -13,6 +13,8 @@ import javax.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -37,5 +39,14 @@ public class UserServiceImpl implements UserService {
                 "the searched user does not exist"));     //error 404
         UserEntity entitySaved = userRepository.save(userMapper.userDtoEntity(entity, request));
         return userMapper.convertTo(entitySaved);
+    }
+
+    @Override
+    public List<UserResponse> getUsers() {
+        List<UserEntity> usersEntities = userRepository.findAll();
+
+
+
+        return userMapper.userEntityDtoList(usersEntities);
     }
 }

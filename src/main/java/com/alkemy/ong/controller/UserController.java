@@ -2,22 +2,19 @@ package com.alkemy.ong.controller;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.response.UserResponse;
 import com.alkemy.ong.service.UserService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.List;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
     
@@ -35,5 +32,9 @@ public class UserController {
         userService.delete(id);
     }
 
+    @GetMapping
+    public ResponseEntity<List<UserResponse>> getAll(){
+        return ResponseEntity.ok(userService.getUsers());
+    }
 
 }
