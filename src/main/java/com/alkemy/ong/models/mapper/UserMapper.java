@@ -37,12 +37,13 @@ public class UserMapper {
 		return entity;
 	}
 	
-	public RegisterResponse toUserRegisterResponde(UserEntity userEntity) {
+	public RegisterResponse toUserRegisterResponde(UserEntity userEntity, String token) {
 		RegisterResponse registerResponse = new RegisterResponse();
 		registerResponse.setId(userEntity.getId());
 		registerResponse.setEmail(userEntity.getEmail());
 		registerResponse.setFirstName(userEntity.getFirstName());
 		registerResponse.setLastName(userEntity.getLastName());
+		registerResponse.setToken(token);
 		return registerResponse;
 	}
         
