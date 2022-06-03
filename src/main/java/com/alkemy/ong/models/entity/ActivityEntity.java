@@ -46,4 +46,9 @@ public class ActivityEntity {
 
     @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
+    public ActivityEntity(String content1, String image1, String name1) {
+        this.content=content1;
+        this.image=image1;
+        this.name=name1;
+    }
 }
