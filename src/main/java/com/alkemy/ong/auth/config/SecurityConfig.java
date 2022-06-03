@@ -28,66 +28,67 @@ import com.alkemy.ong.auth.utility.RoleEnum;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
-	private CustomUserDetailsService customUserDetailsService;
 
-	@Autowired
-	private JwtAuthenticationEntryPoint jwtAuthEntryPoint;
-	
-	@Bean
-	public JwtAuthenticationFilter jwtAuthenticationFilter() {
-		return new JwtAuthenticationFilter();
-	}
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthEntryPoint;
 
-	@Override
-	public void configure(AuthenticationManagerBuilder managerBuilder) throws Exception {
-		managerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
-	}
-	
-	@Override
-	  protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-			.exceptionHandling()
-			//.authenticationEntryPoint(jwtAuthEntryPoint)
-			.and()
-			.sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and()
-			.authorizeRequests()
-			.antMatchers(HttpMethod.POST, "/auth/login").permitAll()
-			.antMatchers(HttpMethod.POST, "/auth/register").permitAll()
-			.antMatchers(HttpMethod.GET, "/organization/public").permitAll()
-				.antMatchers(HttpMethod.POST, "/ong/activities").permitAll()
-			.antMatchers(HttpMethod.DELETE, "/users/{id}").permitAll()
-			.antMatchers(HttpMethod.PATCH, "/users/{id}").permitAll()
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter();
+    }
 
-			.antMatchers(HttpMethod.GET, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-	        .antMatchers(HttpMethod.POST, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-	        .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-	        .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-			.antMatchers(HttpMethod.GET, "/users").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+    @Override
+    public void configure(AuthenticationManagerBuilder managerBuilder) throws Exception {
+        managerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+    }
 
-			.antMatchers(HttpMethod.GET, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-			.antMatchers(HttpMethod.POST, "/news").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-			.antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-			.antMatchers(HttpMethod.DELETE, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-
-			.antMatchers(HttpMethod.GET, "/users").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-
-	        /*agregar autorizaciones a los endpoints pendientes en desarrollo
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .exceptionHandling()
+                //.authenticationEntryPoint(jwtAuthEntryPoint)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/organization/public").permitAll()
+                .antMatchers(HttpMethod.POST, "/ong/activities").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/users/{id}").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/users/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/users").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.GET, "/users").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                //categiries
+                .antMatchers(HttpMethod.GET, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                //news
+                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/news").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.DELETE, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                //Testimonials
+                .antMatchers(HttpMethod.POST, "/testimonials").permitAll()
+                .antMatchers(HttpMethod.PUT, "/testimonials/{id}").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/testimonials/{id}").permitAll()
+                /*agregar autorizaciones a los endpoints pendientes en desarrollo
 	         *EJEMPLO:
 	         * PARA TODOS:
 	         * .antMatchers(HttpMethod.<TIPO>, "<endpoint>").permitAll()
@@ -95,9 +96,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	         * .antMatchers(HttpMethod.<TIPO>, "<endpoint>").hasRole(RoleEnum.USER.getSimpleRoleName);
 	         * PARA ADMIN:
 	         * .antMatchers(HttpMethod.<TIPO>, "<endpoint>").hasRole(RoleEnum.ADMIN.getSimpleRoleName);
-            */
-			.anyRequest()
-			.authenticated();
-    		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-	  }
+                 */
+                .anyRequest()
+                .authenticated();
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
 }
