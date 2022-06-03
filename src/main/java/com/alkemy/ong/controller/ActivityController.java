@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.models.request.ActivityRequest;;
+import com.alkemy.ong.models.request.ActivityRequest;
 import com.alkemy.ong.service.ActivityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
