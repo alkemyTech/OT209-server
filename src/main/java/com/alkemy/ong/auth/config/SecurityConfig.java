@@ -14,13 +14,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.alkemy.ong.auth.filter.JwtAuthenticationFilter;
-import com.alkemy.ong.auth.security.JwtAuthenticationEntryPoint;
+//import com.alkemy.ong.auth.security.JwtAuthenticationEntryPoint;
 import com.alkemy.ong.auth.service.CustomUserDetailsService;
 import com.alkemy.ong.auth.utility.RoleEnum;
 
@@ -32,8 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
-	@Autowired
-	private JwtAuthenticationEntryPoint jwtAuthEntryPoint;
+//	@Autowired
+//	private JwtAuthenticationEntryPoint jwtAuthEntryPoint;
 	
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -87,6 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 			.antMatchers(HttpMethod.GET, "/users").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 
+			.antMatchers(HttpMethod.GET, "/comments").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 	        /*agregar autorizaciones a los endpoints pendientes en desarrollo
 	         *EJEMPLO:
 	         * PARA TODOS:
