@@ -9,8 +9,8 @@ ROLE ADMIN:
 - carlos-email@gmail.com
 - nathaniel-email@gmail.com
 - caitlin-email@gmail.com
-- Jjuan-email@gmail.com
-- Tthanos-email@gmail.com
+- juan-email@gmail.com
+- thanos-email@gmail.com
 - email@gmail.com
 - albert-email@gmail.com
 - javiera-email@gmail.com
