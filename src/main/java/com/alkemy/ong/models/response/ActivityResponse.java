@@ -20,4 +20,6 @@ public class ActivityResponse {
     private Timestamp timestamp;
 
     private Boolean softDelete = Boolean.FALSE;
+
+    private Long id;
 }

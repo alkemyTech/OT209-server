@@ -1,8 +1,11 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.models.request.ActivityRequest;
+import com.alkemy.ong.models.response.ActivityResponse;
 import com.alkemy.ong.service.ActivityService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,4 +35,16 @@ public class ActivityController {
         }
         return response;
     }
+
+    @PutMapping("/activities/{id}")
+    public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @Valid @RequestBody ActivityRequest activityRequest){
+
+        return activityService.itExists(id) ?
+                ResponseEntity.status(HttpStatus.OK).body(activityService.updateActivity(id, activityRequest))
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+
+
+
+    }
+
 }
