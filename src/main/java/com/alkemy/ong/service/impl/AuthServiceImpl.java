@@ -52,6 +52,8 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public RegisterResponse register(RegisterRequest userRegister) {
 
+
+
 		if (userRepository.existsByEmail(userRegister.getEmail())) { //@Adrián Fernández: Change findbyEmail to exists
 			throw new EmailAlreadyExistException(userRegister.getEmail());
 		}
@@ -62,7 +64,9 @@ public class AuthServiceImpl implements AuthService {
 		}
 		UserEntity userEntity = userMapper.toEntity(userRegister, roleEntity);
 		userEntity = userRepository.save(userEntity);
-		RegisterResponse registerResponse = userMapper.toUserRegisterResponde(userEntity);
+		RegisterResponse registerResponse = userMapper.toUserRegisterResponde(userEntity,
+				jwtTokenProvider.generateToken(authenticationManager.authenticate(
+						new UsernamePasswordAuthenticationToken(userRegister.getEmail(), userRegister.getPassword()))));
 		
 		return registerResponse;
 	}
