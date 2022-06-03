@@ -27,6 +27,7 @@ import com.alkemy.ong.models.response.RegisterResponse;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.AuthService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
@@ -81,6 +82,7 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public UserResponse userAuth(String token) {
 		token = token.replace("Bearer ", "");
 		String email = jwtTokenProvider.getJWTUsername(token);

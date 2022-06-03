@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+
 
 @Service
 public class ActivityServiceImp implements ActivityService {
@@ -36,10 +36,11 @@ public class ActivityServiceImp implements ActivityService {
     }
 
     @Override
+    @Transactional
     public ActivityResponse updateActivity(Long id, ActivityRequest request) {
 
         ActivityEntity entity = activityRepository.findById(id).orElseThrow();
-        
+
         return activityMapper.activityEntity2DTO(activityRepository.save(activityMapper.activityEntityRefreshValues(entity, request)));
     }
 }
