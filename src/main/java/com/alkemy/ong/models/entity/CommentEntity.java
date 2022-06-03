@@ -1,13 +1,16 @@
 package com.alkemy.ong.models.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -33,25 +36,22 @@ public class CommentEntity {
 	@Column(name = "comment_id")
 	private Long id;
 
-	@Column(nullable = false)
-	private Long user_id;
-
 	@NotBlank
 	@NotNull(message = "The body can't be null.")
 	@NotEmpty(message = "The body can't be empty.")
 	@Column(nullable = false)
 	private String body;
 
-	@Column(nullable = false)
-	private Long news_id;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "user_id")
+	private UserEntity user;
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "news_id")
+	private NewsEntity news;
 
 	@Column(name = "date")
 	@CreationTimestamp
 	private Timestamp date;
 
-	public CommentEntity(Long userId, String body, Long newsId) {
-		this.user_id = userId;
-		this.body = body;
-		this.news_id = newsId;
-	}
 }

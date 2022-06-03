@@ -11,17 +11,17 @@ import com.alkemy.ong.repository.CommentRepository;
 import com.alkemy.ong.service.CommentService;
 
 @Service
-public class CommentServiceImp implements CommentService{
+public class CommentServiceImp implements CommentService {
 
 	@Autowired
 	private CommentRepository commentRepository;
-	
+
 	@Autowired
 	private CommentMapper commentMapper;
+
 	@Override
 	public List<CommentResponse> getCommentsByDate() {
 		List<CommentResponse> commentDto = commentMapper.listEntityToDtoList(commentRepository.findAllByOrderByDateDesc());
 		return commentDto;
 	}
-
 }
