@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/ong/activities").permitAll()
 			.antMatchers(HttpMethod.DELETE, "/users/{id}").permitAll()
 			.antMatchers(HttpMethod.PATCH, "/users/{id}").permitAll()
-
+			.antMatchers(HttpMethod.GET, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 			.antMatchers(HttpMethod.GET, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 	        .antMatchers(HttpMethod.POST, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 	        .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
