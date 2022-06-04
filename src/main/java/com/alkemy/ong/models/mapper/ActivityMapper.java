@@ -23,6 +23,15 @@ public class ActivityMapper {
                 .content(entity.getContent())
                 .image(entity.getImage())
                 .timestamp(entity.getTimestamp())
+                .id(entity.getId())
                 .build();
+    }
+
+    public ActivityEntity activityEntityRefreshValues(ActivityEntity entity, ActivityRequest dto){
+        entity.setName(dto.getName());
+        entity.setContent(dto.getContent());
+        entity.setImage(dto.getImage());
+
+        return entity;
     }
 }

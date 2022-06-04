@@ -27,6 +27,7 @@ import com.alkemy.ong.models.response.RegisterResponse;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.AuthService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
@@ -52,6 +53,8 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public RegisterResponse register(RegisterRequest userRegister) {
 
+
+
 		if (userRepository.existsByEmail(userRegister.getEmail())) { //@Adrián Fernández: Change findbyEmail to exists
 			throw new EmailAlreadyExistException(userRegister.getEmail());
 		}
@@ -62,7 +65,9 @@ public class AuthServiceImpl implements AuthService {
 		}
 		UserEntity userEntity = userMapper.toEntity(userRegister, roleEntity);
 		userEntity = userRepository.save(userEntity);
-		RegisterResponse registerResponse = userMapper.toUserRegisterResponde(userEntity);
+		RegisterResponse registerResponse = userMapper.toUserRegisterResponde(userEntity,
+				jwtTokenProvider.generateToken(authenticationManager.authenticate(
+						new UsernamePasswordAuthenticationToken(userRegister.getEmail(), userRegister.getPassword()))));
 		
 		return registerResponse;
 	}
@@ -81,6 +86,7 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public UserResponse userAuth(String token) {
 		token = token.replace("Bearer ", "");
 		String email = jwtTokenProvider.getJWTUsername(token);
