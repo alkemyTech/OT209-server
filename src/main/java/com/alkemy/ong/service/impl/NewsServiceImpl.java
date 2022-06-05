@@ -7,7 +7,9 @@ import com.alkemy.ong.models.response.NewsDetailsResponse;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -26,7 +28,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public NewsDetailsResponse getById(Long id) {
-        return newsMapper.newsEntity2NewsResponse(newsRepository.findById(id).orElseThrow());
+        return newsMapper.newsEntity2NewsResponse(newsRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "the searched news does not exist")));
     }
 
     @Override
@@ -36,7 +39,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public NewsDetailsResponse updateById(Long id, NewsRequest request) {
-        NewsEntity entity = newsRepository.findById(id).orElseThrow();
+        NewsEntity entity = newsRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "the searched news does not exist"));
         return newsMapper.newsEntity2NewsResponse(newsRepository.save(newsMapper.updateNewsEntityWithNewsRequest(entity, request)));
     }
 
