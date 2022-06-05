@@ -15,8 +15,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity @Table(name = "activities")
-@SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE id=?")
-@Where(clause = "soft_delete = false")
 public class ActivityEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

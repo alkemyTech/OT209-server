@@ -79,10 +79,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/testimonials/{id}").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/testimonials/{id}").permitAll()
                 //activities
-		    	.antMatchers(HttpMethod.PUT, "/ong/activities/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
+		    	      .antMatchers(HttpMethod.PUT, "/ong/activities/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
                 //commnets
-			    .antMatchers(HttpMethod.GET, "/comments").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-                /*agregar autorizaciones a los endpoints pendientes en desarrollo
+			          .antMatchers(HttpMethod.GET, "/comments").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+			          //members
+			          .antMatchers(HttpMethod.POST, "/members/create").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
+			          .antMatchers(HttpMethod.GET, "/members/list").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
+			          .antMatchers(HttpMethod.PUT, "/members/update/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
+			          .antMatchers(HttpMethod.DELETE, "/members/delete/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
+                
+	       	 /*agregar autorizaciones a los endpoints pendientes en desarrollo
+
 	         *EJEMPLO:
 	         * PARA TODOS:
 	         * .antMatchers(HttpMethod.<TIPO>, "<endpoint>").permitAll()
@@ -95,4 +102,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 }
+

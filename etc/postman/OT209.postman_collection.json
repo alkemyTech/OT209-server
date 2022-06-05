@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e64e7a35-05d8-45dc-bc64-5ec622d04510",
+		"_postman_id": "3c145298-1e40-4fa1-8707-89bff017f7eb",
 		"name": "OT209",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20286094"
+		"_exporter_id": "17496748"
 	},
 	"item": [
 		{
@@ -62,6 +62,151 @@
 							"path": [
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Members",
+			"item": [
+				{
+					"name": "POST CREATE MEMBERS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFucGVyYWx0YUBob3RtYWlsLmNvbSIsImlhdCI6MTY1NDQ0NTA4NSwiZXhwIjoxNjU0NTA1NTY1fQ.pyyFl18sxI7hPtZnOTeHJTdCx5pyOfL_LSmYNYG-sVOgW2WhfIL5_btSMNc7aG64hY0v1Qc7V7PSEUWKTXvq_g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"juan\",\r\n    \"image\":\"MyImage\",\r\n    \"description\":\"MyDescription\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/members/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"members",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT UPDATE MEMBERS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFucGVyYWx0YUBob3RtYWlsLmNvbSIsImlhdCI6MTY1NDQ0NTA4NSwiZXhwIjoxNjU0NTA1NTY1fQ.pyyFl18sxI7hPtZnOTeHJTdCx5pyOfL_LSmYNYG-sVOgW2WhfIL5_btSMNc7aG64hY0v1Qc7V7PSEUWKTXvq_g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Luis\",\r\n    \"image\":\"MyImage\",\r\n    \"description\":\"MyDescription\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/members/update/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"members",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MEMBERS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFucGVyYWx0YUBob3RtYWlsLmNvbSIsImlhdCI6MTY1NDQ0NTA4NSwiZXhwIjoxNjU0NTA1NTY1fQ.pyyFl18sxI7hPtZnOTeHJTdCx5pyOfL_LSmYNYG-sVOgW2WhfIL5_btSMNc7aG64hY0v1Qc7V7PSEUWKTXvq_g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/members/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"members",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE MEMBER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFucGVyYWx0YUBob3RtYWlsLmNvbSIsImlhdCI6MTY1NDQ0NTA4NSwiZXhwIjoxNjU0NTA1NTY1fQ.pyyFl18sxI7hPtZnOTeHJTdCx5pyOfL_LSmYNYG-sVOgW2WhfIL5_btSMNc7aG64hY0v1Qc7V7PSEUWKTXvq_g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/members/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"members",
+								"delete",
+								"1"
 							]
 						}
 					},
