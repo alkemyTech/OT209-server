@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.ong.exception.ParamNotFound;
@@ -57,6 +60,16 @@ public class CategoryServiceImpl implements CategoryService{
 			throw new ParamNotFound("Id not found");
 		}
 		categoryRepository.deleteById(id);	
+	}
+
+
+	@Override
+	public CategoryResponse getCategory(Long id) {
+		Optional<CategoryEntity> entity = categoryRepository.findById(id);
+		if(!entity.isPresent()) {
+			throw new ParamNotFound(String.format("Id %s not found in category", id));
+		}
+		return categoryMapper.categoryEntity2DTO(entity.get());
 	}
 	
 
