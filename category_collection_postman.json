@@ -105,6 +105,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "categories/{id}",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		}

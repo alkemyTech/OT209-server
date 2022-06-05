@@ -38,6 +38,12 @@ public class CategoryController {
 		return ResponseEntity.ok(response);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<CategoryResponse> getDetail(@PathVariable Long id){
+		CategoryResponse response = categoryService.getCategory(id);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
 	@PostMapping
 	public ResponseEntity<CategoryResponse> save(@Valid @RequestBody CategoryRequest categoryRequest){
 		CategoryResponse response = categoryService.saveCategory(categoryRequest);

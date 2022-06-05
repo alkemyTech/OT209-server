@@ -28,7 +28,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void delete(Long id) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findById(id).orElseThrow();
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "the searched user does not exist"));
         user.setSoftDelete(true);
         userRepository.save(user);
     }
