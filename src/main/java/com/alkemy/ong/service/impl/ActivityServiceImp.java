@@ -1,6 +1,5 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.models.entity.ActivityEntity;
 import com.alkemy.ong.models.mapper.ActivityMapper;
 import com.alkemy.ong.models.request.ActivityRequest;
