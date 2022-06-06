@@ -68,7 +68,7 @@ public class UserEntity {
     @Column
     private Timestamp timestamp;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_roles",
             joinColumns = {
                 @JoinColumn(name = "User_id")
@@ -78,4 +78,13 @@ public class UserEntity {
             })
     private Set<RoleEntity> rol;
 
+    public UserEntity(String cFirstName, String cLastName, String cEmail, String cPassword, String cPhoto, Timestamp cTimestamp, Set<RoleEntity> cRoles) {
+    	this.setFirstName(cFirstName);
+    	this.setLastName(cLastName);
+    	this.setEmail(cEmail);
+    	this.setPassword(cPassword);
+    	this.setPhoto(cPhoto);
+    	this.setTimestamp(cTimestamp);
+    	this.setRol(cRoles);
+    }
 }

@@ -10,12 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+
 @Service
 public class ActivityServiceImp implements ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
     @Autowired
     private ActivityMapper activityMapper;
+
+    @Override
+    public boolean itExists(Long id){
+        return activityRepository.findById(id).isPresent();
+    }
+
     @Override
     @Transactional
     public ActivityResponse saveActivity(ActivityRequest activity) {
@@ -24,5 +32,14 @@ public class ActivityServiceImp implements ActivityService {
         activityRepository.save(entity);
 
         return activityMapper.activityEntity2DTO(entity);
+    }
+
+    @Override
+    @Transactional
+    public ActivityResponse updateActivity(Long id, ActivityRequest request) {
+
+        ActivityEntity entity = activityRepository.findById(id).orElseThrow();
+
+        return activityMapper.activityEntity2DTO(activityRepository.save(activityMapper.activityEntityRefreshValues(entity, request)));
     }
 }

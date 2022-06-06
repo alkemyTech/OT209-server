@@ -16,4 +16,6 @@ public interface CategoryService{
 	
 	public CategoryResponse updateCategory(Long id, CategoryRequest category);
 	
+	public CategoryResponse getCategory(Long id);
+	
 }
