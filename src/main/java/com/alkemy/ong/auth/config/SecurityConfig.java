@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
                 .antMatchers(HttpMethod.GET, "/organization/public").permitAll()
+                .antMatchers(HttpMethod.PUT,"/organization/public").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                 .antMatchers(HttpMethod.POST, "/ong/activities").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/users/{id}").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/users/{id}").permitAll()

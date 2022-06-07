@@ -5,20 +5,57 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sendgrid.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.ong.service.EmailService;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sendgrid.Email;
-import com.sendgrid.Mail;
-import com.sendgrid.Method;
-import com.sendgrid.Personalization;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
-import com.sendgrid.SendGrid;
 
+@Slf4j
 @Service
 public class EmailServiceImpl implements EmailService {
+
+	@Autowired
+	private Environment env;
+
+	@Override
+	public String sendTextEmail(String toNewUser) throws IOException {
+
+		String apikey = env.getProperty("API_KEY");
+		String template_id = env.getProperty("TEMPLATE_ID");
+		String email_sender = env.getProperty("EMAIL_SENDER");
+		log.info("entrando a sendTextEmail");
+		Email from = new Email(email_sender);
+		String subject = "SomosMás";
+		Email to = new Email(toNewUser);
+		Content content = new Content("text/plain", "Bienvenido a SomosMás");
+		Mail mail = new Mail(from, subject, to, content);
+
+		DynamicTemplatePersonalization personalization = new DynamicTemplatePersonalization();
+		personalization.addTo(to);
+		personalization.addDynamicTemplateData("Maxi", "hamdi");
+		mail.addPersonalization(personalization);
+		mail.setTemplateId(template_id);
+		log.info("antes");
+		SendGrid sg = new SendGrid(apikey);
+		log.info("despues");
+		Request request = new Request();
+		try {
+			request.setMethod(Method.POST);
+			request.setEndpoint("mail/send");
+			request.setBody(mail.build());
+			Response response = sg.api(request);
+			log.info(response.getBody());
+			return response.getBody();
+		} catch (IOException ex) {
+			throw ex;
+		}
+
+	}
 
 	public void send() throws IOException {
 		/*

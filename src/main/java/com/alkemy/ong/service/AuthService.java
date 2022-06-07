@@ -18,5 +18,5 @@ public interface AuthService {
 
 	public UserResponse userAuth(String token);
 
-	public String sendTextEmail() throws IOException, IOException;
+	//public String sendTextEmail() throws IOException, IOException;
 }

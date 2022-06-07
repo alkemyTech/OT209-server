@@ -98,11 +98,12 @@ public class AuthServiceImpl implements AuthService {
 
 
 	}
+	/*
 	public String sendTextEmail() throws IOException {
-		/*
-		 * The sender email should be the same as we used to Create a Single Sender
-		 * Verification
-		 */
+
+		 //The sender email should be the same as we used to Create a Single Sender
+		 //Verification
+
 		log.info("entrando a sendTextEmail");
 		Email from = new Email("mdlprofesional@gmail.com");
 		String subject = "Maximiliano";
@@ -125,4 +126,5 @@ public class AuthServiceImpl implements AuthService {
 			throw ex;
 		}
 	}
+	*/
 }
