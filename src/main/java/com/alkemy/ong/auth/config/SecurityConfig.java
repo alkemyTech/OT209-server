@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .exceptionHandling()               
+                .exceptionHandling()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -88,10 +88,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			          .antMatchers(HttpMethod.GET, "/members/list").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
 			          .antMatchers(HttpMethod.PUT, "/members/update/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
 			          .antMatchers(HttpMethod.DELETE, "/members/delete/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
-			        //contacts
-						.antMatchers(HttpMethod.GET, "/contacts").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-						.antMatchers(HttpMethod.POST, "/contacts").permitAll()
-						
+				        //contacts
+				        .antMatchers(HttpMethod.GET, "/contacts").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				        .antMatchers(HttpMethod.POST, "/contacts").permitAll()
+
+
 	       	 /*agregar autorizaciones a los endpoints pendientes en desarrollo
 
 	         *EJEMPLO:
@@ -108,4 +109,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
-

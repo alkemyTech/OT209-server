@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "6074e42c-2558-430e-9cb9-0f5b133c4545",
+		"name": "Contact Form",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20422230"
+	},
+	"item": [
+		{
+			"name": "Send Message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"nombre3\",\r\n    \"email\":\"name3@uar.com\",\r\n    \"phone\":\"name3\",\r\n    \"message\":\"Me gustaría colaborar\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/contacts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetContacts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5QGMuY29tIiwiaWF0IjoxNjU0NDYyODE4LCJleHAiOjE2NTQ1MjMyOTh9.zp-9iredzeyI_VidnMT_GK2hiOV2SyGyfmTyhoMSajD6DU42NnlWV6At3IuDtnoPPJgt1ryY_Q8F7Fb76UPPVw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/contacts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
