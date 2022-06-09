@@ -125,4 +125,12 @@ public class AuthServiceImpl implements AuthService {
 			throw ex;
 		}
 	}
+
+	public String getRol(String token){
+
+
+
+		return null;
+	}
+
 }
