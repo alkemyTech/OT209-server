@@ -1,17 +1,19 @@
 
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.exception.OrgNotFoundException;
+import com.alkemy.ong.models.entity.Organization;
 import com.alkemy.ong.models.mapper.OrganizationMapper;
 import com.alkemy.ong.models.response.DateOrganizationResponse;
+import com.alkemy.ong.models.response.OrganizationDTO;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.service.OrganizationService;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +24,13 @@ public class OrganizationServiceImpl implements OrganizationService {
     private OrganizationMapper ongMapper;
     @Autowired
     private OrganizationRepository organizationRepository;
+
+    @Autowired
+    private OrganizationService organizationService;
+
+    @Autowired
+    private OrganizationMapper organizationMapper;
+
     @Override
     public List<DateOrganizationResponse> getOrganizationInfo() {
      try {
@@ -31,5 +40,20 @@ public class OrganizationServiceImpl implements OrganizationService {
     }catch(Exception e){
          throw new EntityNotFoundException("Error getting organization data" + e.getMessage());
      }
-    }  
+    }
+
+    @Override
+    public OrganizationDTO update(Long id, OrganizationDTO dto) throws OrgNotFoundException {
+        Organization model = this.organizationRepository.findById(id).orElse(null);
+
+        if(model==null){
+            throw new OrgNotFoundException(dto.getId(),"Organization");
+        }
+        model= this.organizationMapper.organizationRefreshValues(model, dto);
+        Organization modelSaved = organizationRepository.save(model);
+        OrganizationDTO result = organizationMapper.organizationModel2Dto(modelSaved);
+
+        return result;
+    }
+
 }
