@@ -24,7 +24,7 @@ public class EmailServiceImpl implements EmailService {
 	@Value("${ong.sendgrid.apikey}")
 	private String sendgridApiKey;
 
-	public void sendTemplateSomosMas(String toMail) throws IOException {
+	public void sendTemplateSolosMas(String toMail) throws IOException {
 		Email from = new Email(fromEmail);
 		String subject = SUBJECT;
 		Email to = new Email(toMail);

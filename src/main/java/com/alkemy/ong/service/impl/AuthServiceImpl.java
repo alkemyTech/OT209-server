@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
 				jwtTokenProvider.generateToken(authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(userRegister.getEmail(), userRegister.getPassword()))));
 		try {
-			this.emailService.sendTemplateSomosMas(registerResponse.getEmail());
+			this.emailService.sendTemplateSolosMas(registerResponse.getEmail());
 		} catch (IOException e) {
 			System.out.println("ERROR WHILE SENDING EMAIL TEMPLATE. CHECK EMAIL IMPLEMENTATION");
 		}
