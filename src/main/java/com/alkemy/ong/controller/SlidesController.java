@@ -3,8 +3,11 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.exception.NotAcceptableArgumentException;
 import com.alkemy.ong.exception.OrgNotFoundException;
+import com.alkemy.ong.models.entity.Slide;
 import com.alkemy.ong.models.request.SlideGetDTO;
 import com.alkemy.ong.models.request.SlideRequestDTO;
+import com.alkemy.ong.models.response.SlideBasicResponse;
+import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.service.SlideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -63,5 +67,17 @@ public class SlidesController {
         } catch (OrgNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<SlideBasicResponse>> getSlides(){
+    	List<SlideBasicResponse> response = slideService.getSlides();
+    	return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<SlideResponse> getSlide(@PathVariable Long id){
+    	SlideResponse response = slideService.getSlideById(id);
+    	return ResponseEntity.ok(response);
     }
 }

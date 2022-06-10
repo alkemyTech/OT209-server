@@ -3,9 +3,11 @@ package com.alkemy.ong.models.response;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter
 public class SlideResponse {
-
-	private Long id;
 	
     @NotEmpty(message ="El campo organizationId debe completarlo")
     private Long organizationId;

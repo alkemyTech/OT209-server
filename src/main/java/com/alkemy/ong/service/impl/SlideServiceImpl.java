@@ -3,11 +3,14 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.aws.config.AwsS3ClientConfig;
 import com.alkemy.ong.exception.NotAcceptableArgumentException;
 import com.alkemy.ong.exception.OrgNotFoundException;
+import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.models.entity.Slide;
 import com.alkemy.ong.models.mapper.SlideMapper;
 import com.alkemy.ong.models.request.SlideDTO;
 import com.alkemy.ong.models.request.SlideGetDTO;
 import com.alkemy.ong.models.request.SlideRequestDTO;
+import com.alkemy.ong.models.response.SlideBasicResponse;
+import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.AmazonClient;
@@ -19,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SlideServiceImpl implements SlideService {
@@ -136,4 +141,23 @@ public class SlideServiceImpl implements SlideService {
             throw new OrgNotFoundException(id,"Slide");
         }
     }
+
+	@Override
+	public List<SlideBasicResponse> getSlides() {
+		List<Slide> entities = slideRepository.findAll();
+		List<SlideBasicResponse> dtos = slideMapper.slideEntityList2DTOList(entities);
+		return dtos;
+	}
+
+	@Override
+	public SlideResponse getSlideById(Long id) {
+		
+		Optional<Slide> entity = slideRepository.findById(id);
+		
+		if(!entity.isPresent()) {
+			throw new ParamNotFound(String.format("Id %s no encontrado en Slides", id));
+		}
+		
+		return slideMapper.slideEntity2DTO(entity.get());
+	}
 }
