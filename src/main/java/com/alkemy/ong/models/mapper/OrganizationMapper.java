@@ -2,19 +2,15 @@ package com.alkemy.ong.models.mapper;
 
 import com.alkemy.ong.models.entity.Organization;
 import com.alkemy.ong.models.entity.Slide;
+import com.alkemy.ong.models.request.DateOrganizationRequest;
 import com.alkemy.ong.models.response.DateOrganizationResponse;
-
+import com.alkemy.ong.models.response.OrganizationDTO;
 import com.alkemy.ong.utility.ComparatorSlide;
 
 import java.util.Collections;
 import java.util.List;
 
-import com.alkemy.ong.models.response.OrganizationDTO;
-import lombok.ToString;
-
 import org.springframework.stereotype.Component;
-
-import java.util.function.ToIntFunction;
 
 @Component
 public class OrganizationMapper {
@@ -26,9 +22,27 @@ public class OrganizationMapper {
                 .address(ong.getAddress())
                 .phone(String.valueOf(ong.getPhone()))
                 .slides(slides)
+                .urlFacebook(ong.getUrlFacebook())
+                .urlInstagram(ong.getUrlInstagram())
+                .urlLinkedin(ong.getUrlLinkedin())
                 .build();
     }
 
+    public Organization orgRequestToEntity(DateOrganizationRequest request) {
+    	Organization entity = new Organization();
+		entity.setName(request.getName());
+		entity.setImage(request.getImage());
+		entity.setAddress(request.getAddress());
+		entity.setPhone(Integer.parseInt(request.getPhone()));
+		entity.setEmail(request.getEmail());
+		entity.setWelcomeText(request.getWelcomeText());
+		entity.setAboutUsText(request.getAboutUsText());
+		entity.setUrlFacebook(request.getUrlFacebook());
+		entity.setUrlInstagram(request.getUrlInstagram());
+		entity.setUrlLinkedin(request.getUrlLinkedin());
+    	return entity;
+    }
+    
     public Organization organizationRefreshValues(Organization model, OrganizationDTO dto){
 
         if(dto.getName()!=null && !dto.getName().isEmpty()){
@@ -59,11 +73,15 @@ public class OrganizationMapper {
             model.setAboutUsText(dto.getAboutUsText());
         }
 
+        model.setUrlInstagram(dto.getUrlInstagramDto());
+        model.setUrlFacebook(dto.getUrlFacebookDto());
+        model.setUrlLinkedin(dto.getUrlLinkedinDto());
+        
         return model;
     }
     public OrganizationDTO organizationModel2Dto(Organization organization){
 
-        OrganizationDTO dto = null;
+        OrganizationDTO dto = new OrganizationDTO();
 
         dto.setId(organization.getId());
         dto.setName(organization.getName());
@@ -73,7 +91,10 @@ public class OrganizationMapper {
         dto.setEmail(organization.getEmail());
         dto.setWelcomeText(organization.getWelcomeText());
         dto.setAboutUsText(organization.getAboutUsText());
-
+        dto.setUrlFacebookDto(organization.getUrlFacebook());
+        dto.setUrlInstagramDto(organization.getUrlInstagram());
+        dto.setUrlLinkedinDto(organization.getUrlLinkedin());
+        
         return dto;
     }
 

@@ -5,6 +5,7 @@ import com.alkemy.ong.models.entity.Slide;
 import com.alkemy.ong.exception.OrgNotFoundException;
 import com.alkemy.ong.models.entity.Organization;
 import com.alkemy.ong.models.mapper.OrganizationMapper;
+import com.alkemy.ong.models.request.DateOrganizationRequest;
 import com.alkemy.ong.models.response.DateOrganizationResponse;
 import com.alkemy.ong.models.response.OrganizationDTO;
 import com.alkemy.ong.repository.OrganizationRepository;
@@ -59,5 +60,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         return result;
     }
+
+	@Override
+	public String create(DateOrganizationRequest request) {
+		this.organizationRepository.save(this.ongMapper.orgRequestToEntity(request));
+		return "Entity created";
+	}
+    
+    
 
 }
