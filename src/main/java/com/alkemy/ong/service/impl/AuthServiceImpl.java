@@ -100,4 +100,12 @@ public class AuthServiceImpl implements AuthService {
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "the searched user does not exist"));
 		return userMapper.convertTo(userEntity);
 	}
+
+	public String getRol(String token){
+
+
+
+		return null;
+	}
+
 }

@@ -28,7 +28,7 @@ public class NewsMapper {
                 .id(entity.getId())
                 .build();
     }
-
+//newsMapper.newsEntity2NewsResponse(newsRepository.save(newsMapper.updateNewsEntityWithNewsRequest(entity, request)));
     public NewsEntity updateNewsEntityWithNewsRequest (NewsEntity entity, NewsRequest request){
         entity.setName(request.getName());
         entity.setImage(request.getImage());

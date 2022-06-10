@@ -60,7 +60,8 @@ public class UserMapper {
                     .email(user.getEmail())
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
-                    .photo(user.getPhoto())                    
+                    .photo(user.getPhoto())
+					.id(user.getId())
                     .build();
         }
 
