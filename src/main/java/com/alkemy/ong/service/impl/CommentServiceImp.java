@@ -117,7 +117,7 @@ public class CommentServiceImp implements CommentService {
 		}
 		UserResponse userResponse = authService.userAuth(token);
 		UserEntity userEntity = userService.findById(userResponse.getId());
-		
+
 		if( userResponse.getEmail().equals(commentEntity.get().getUser().getEmail()) || userEntity.getRol().stream().anyMatch(
 				e -> e.getName().equals("ROLE_ADMIN")
 		)){
