@@ -90,7 +90,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//contacts
 				.antMatchers(HttpMethod.GET, "/contacts").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 				.antMatchers(HttpMethod.POST, "/contacts").permitAll()
-
+                // comments
+                .antMatchers(HttpMethod.POST, "/comments").permitAll()
 	       	 /*agregar autorizaciones a los endpoints pendientes en desarrollo
 
 	         *EJEMPLO:

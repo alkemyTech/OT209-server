@@ -23,6 +23,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public boolean itExists(Long id) {
+        System.out.println(id);
         return newsRepository.findById(id).isPresent();
     }
 

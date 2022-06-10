@@ -25,7 +25,7 @@ public class CommentRequest {
     @NotBlank
     @NotNull(message = "The body can't be null.")
     @NotEmpty(message = "The body can't be empty.")
-    private Long userID;
+    private Long userId;
 
     @NotNull(message = "id news is required")
     private Long newsId;

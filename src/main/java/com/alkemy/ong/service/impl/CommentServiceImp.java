@@ -1,7 +1,9 @@
 package com.alkemy.ong.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.exception.UserNotMatch;
 import com.alkemy.ong.models.entity.CommentEntity;
@@ -54,17 +56,17 @@ public class CommentServiceImp implements CommentService {
 		if(!newsServiceimpl.itExists(commentRequest.getNewsId())){
 			throw new ParamNotFound("news ID not found");
 		}
-		if(!userService.ExistsUserById(commentRequest.getUserID())){
+		if(!userService.ExistsUserById(commentRequest.getUserId())){
 			throw new ParamNotFound("User ID not found");
 		}
 
 
-		return commentMapper.commentsEntity2CommentsResponse(commentMapper.commentRequest2newsEntity(commentRequest));
+		return commentMapper.commentsEntity2CommentsResponse(commentRepository.save(commentMapper.commentRequest2newsEntity(commentRequest)));
 	}
 
 
 	@Override
-	public CommentResponse updateById(Long id, CommentRequest request, String authorization) throws UserNotMatch, AccessDeniedException {
+	public CommentResponse updateById(Long id, CommentRequest request, String authorization) throws  AccessDeniedException {
 		CommentEntity entity = commentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 				"the searched comment does not exist"));
 		/*
@@ -81,6 +83,7 @@ public class CommentServiceImp implements CommentService {
 	private void checkComment(CommentEntity entity,CommentRequest commentRequest, String authorization) throws AccessDeniedException{
 
 		UserResponse userResponse = authService.userAuth(authorization);
+		System.out.println(userResponse.getId()+"----------.dw.dw");
 		UserEntity userEntity = userService.findById(userResponse.getId());
 
 		if(userEntity.getRol().stream().anyMatch(
@@ -89,12 +92,11 @@ public class CommentServiceImp implements CommentService {
 			return ;
 		}
 
-		if(!entity.getUser().getId().equals(commentRequest.getUserID())
+		if(!entity.getUser().getId().equals(commentRequest.getUserId())
 				|| !entity.getNews().getId().equals(commentRequest.getNewsId())
 		 		|| !(userResponse.getEmail().equals(entity.getUser().getEmail())) ) {
 
 			throw new AccessDeniedException("you do not have permissions to perform this action.");
-
 		}
 
 
@@ -107,7 +109,24 @@ public class CommentServiceImp implements CommentService {
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Long id, String token) throws NotFoundException, AccessDeniedException {
+
+		Optional<CommentEntity> commentEntity = commentRepository.findById(id);
+		if (commentEntity.isEmpty()){
+			throw new NotFoundException("Comment not found");
+		}
+		UserResponse userResponse = authService.userAuth(token);
+		UserEntity userEntity = userService.findById(userResponse.getId());
+		
+		if( userResponse.getEmail().equals(commentEntity.get().getUser().getEmail()) || userEntity.getRol().stream().anyMatch(
+				e -> e.getName().equals("ROLE_ADMIN")
+		)){
+			commentRepository.deleteById(id);
+		} else {
+			throw new AccessDeniedException("you do not have permissions to perform this action.");
+		}
+
+
 
 	}
 

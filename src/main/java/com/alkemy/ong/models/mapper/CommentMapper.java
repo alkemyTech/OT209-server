@@ -10,6 +10,7 @@ import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.alkemy.ong.models.entity.CommentEntity;
@@ -18,12 +19,16 @@ import com.alkemy.ong.models.response.CommentResponse;
 
 @Component
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class CommentMapper {
 
 	private CommentRepository commentRepository;
 
+
+	@Autowired
 	private NewsRepository newsRepository;
 
+	@Autowired
 	private UserRepository userRepository;
 
 	public List<CommentResponse> listEntityToDtoList(List<CommentEntity> entityList) {
@@ -51,7 +56,7 @@ public class CommentMapper {
 		entity.setId(request.getId());
 		entity.setBody(request.getBody());
 		entity.setNews(newsRepository.findById(request.getNewsId()).get());
-		entity.setUser(userRepository.findById(request.getUserID()).get());
+		entity.setUser(userRepository.findById(request.getUserId()).get());
 		entity.setDate(request.getDate());
 		return entity;
 	}

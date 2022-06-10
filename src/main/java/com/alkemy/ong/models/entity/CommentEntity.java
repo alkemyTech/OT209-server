@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +30,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "comments")
+//@SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE category_id=?")
 public class CommentEntity {
 
 	@Id

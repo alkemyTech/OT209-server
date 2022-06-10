@@ -16,6 +16,6 @@ public interface CommentService {
 
 	public CommentResponse create(CommentRequest commentRequest) throws ParamNotFound;
 
-	public void deleteById(Long id);
+	public void deleteById(Long id, String token);
 
 }

@@ -61,6 +61,7 @@ public class UserMapper {
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
                     .photo(user.getPhoto())
+					.id(user.getId())
                     .build();
         }
 
