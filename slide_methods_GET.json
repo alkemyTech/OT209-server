@@ -1,0 +1,25 @@
+{
+	"info": {
+		"_postman_id": "0b4cffde-cd72-411e-8b7b-e76d96e3f297",
+		"name": "SlideMethodsGet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Slides",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Slides/{id}",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
