@@ -1,12 +1,14 @@
 
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.models.entity.Slide;
 import com.alkemy.ong.exception.OrgNotFoundException;
 import com.alkemy.ong.models.entity.Organization;
 import com.alkemy.ong.models.mapper.OrganizationMapper;
 import com.alkemy.ong.models.response.DateOrganizationResponse;
 import com.alkemy.ong.models.response.OrganizationDTO;
 import com.alkemy.ong.repository.OrganizationRepository;
+import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.OrganizationService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +26,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     private OrganizationMapper ongMapper;
     @Autowired
     private OrganizationRepository organizationRepository;
-
+    @Autowired
+    private SlideRepository slideRepository;
+    
     @Autowired
     private OrganizationService organizationService;
 
@@ -35,7 +39,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public List<DateOrganizationResponse> getOrganizationInfo() {
      try {
          return organizationRepository.findAll().stream()
-                .map( i -> ongMapper.ongToDto(i) )
+                .map( i -> ongMapper.ongToDto(i, slideRepository.findByOrganizationIdIs(i.getId())) )
                 .collect(Collectors.toList());   
     }catch(Exception e){
          throw new EntityNotFoundException("Error getting organization data" + e.getMessage());

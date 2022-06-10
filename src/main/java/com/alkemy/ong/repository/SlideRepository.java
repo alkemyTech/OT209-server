@@ -22,6 +22,8 @@ public interface SlideRepository extends JpaRepository<Slide, Long> {
 //    List<Slide> findAllByOrganizationId(@Param("id") Long id);
 
 	Slide findTopByOrderBySlideOrderDesc();
+	
+	List<Slide> findByOrganizationIdIs(Long id);
 
 	boolean existsById(Long id);
 

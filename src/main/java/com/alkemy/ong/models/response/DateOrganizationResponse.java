@@ -1,6 +1,10 @@
 
 package com.alkemy.ong.models.response;
 
+import java.util.List;
+
+import com.alkemy.ong.models.entity.Slide;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,5 +14,6 @@ public class DateOrganizationResponse {
     private String name;
     private String image;   
     private String address;
-    private String phone; 
+    private String phone;
+    private List<Slide> slides;
 }
