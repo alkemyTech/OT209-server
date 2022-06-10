@@ -8,6 +8,7 @@ import com.alkemy.ong.models.response.UserResponse;
 import com.alkemy.ong.service.AuthService;
 import javax.validation.Valid;
 
+import com.alkemy.ong.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +20,15 @@ import java.io.IOException;
 @RequestMapping("/auth")
 
 public class AuthController {
+	@Autowired
+	private EmailService emailService;
 	
 	@Autowired
 	private AuthService authService;
 
 	@PostMapping("/register")
 	public ResponseEntity<RegisterResponse> signUp(@Valid @RequestBody RegisterRequest registerRequest) throws IOException {
+		emailService.sendTemplateSolosMas(registerRequest.getEmail());
 		return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(registerRequest));
 	}
 

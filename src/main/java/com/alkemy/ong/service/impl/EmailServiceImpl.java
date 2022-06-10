@@ -4,27 +4,37 @@ import java.io.IOException;
 
 import com.sendgrid.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.ong.service.EmailService;
 
+
 @Service
 public class EmailServiceImpl implements EmailService {
+
+	@Autowired
+	private Environment env;
 
 	private static final String SUBJECT = "Gracias por registrarte";
 	private static final String TYPE_CONTENT = "text/html";
 	private static final String BODY_CONTENT = "bodyyy";
 	private static final String REQUEST_ENDPOINT = "mail/send";
 
-	@Value("${ong.sendgrid.frommail}")
-	private String fromEmail;
-	@Value("${ong.sendgrid.idtemplate}")
-	private String templateId;
-	@Value("${ong.sendgrid.apikey}")
-	private String sendgridApiKey;
+	//@Value("${ong.sendgrid.frommail}")
 
-	public void sendTemplateSomosMas(String toMail) throws IOException {
+	//@Value("${ong.sendgrid.idtemplate}")
+
+	//@Value("${ong.sendgrid.apikey}")
+
+	public void sendTemplateSolosMas(String toMail) throws IOException {
+
+		String fromEmail = env.getProperty("EMAIL_SENDER");
+		String templateId = env.getProperty("TEMPLATE_ID");
+		String sendgridApiKey = env.getProperty("API_KEY");
+
 		Email from = new Email(fromEmail);
 		String subject = SUBJECT;
 		Email to = new Email(toMail);
@@ -46,6 +56,7 @@ public class EmailServiceImpl implements EmailService {
 			System.out.println(response.getBody() + "\n");
 			System.out.println(response.getHeaders() + "\n");
 			System.out.println("-------------------------------------------");
+
 		} catch (IOException ex) {
 			throw ex;
 		}

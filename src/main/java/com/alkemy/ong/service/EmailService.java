@@ -4,6 +4,6 @@ import java.io.IOException;
 
 public interface EmailService {
 	
-	public void sendTemplateSomosMas(String to) throws IOException;
+	public void sendTemplateSolosMas(String to) throws IOException;
 	
 }
