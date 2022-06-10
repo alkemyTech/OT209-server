@@ -3,6 +3,7 @@ package com.alkemy.ong.service;
 import java.io.IOException;
 
 public interface EmailService {
-
-	public void send() throws IOException;
+	
+	public void sendTemplateSolosMas(String to) throws IOException;
+	
 }

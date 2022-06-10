@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .exceptionHandling()               
+                .exceptionHandling()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
                 .antMatchers(HttpMethod.GET, "/organization/public").permitAll()
+                .antMatchers(HttpMethod.PUT,"/organization/public").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                 .antMatchers(HttpMethod.POST, "/ong/activities").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/users/{id}").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/users/{id}").permitAll()
@@ -87,7 +88,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			          .antMatchers(HttpMethod.GET, "/members/list").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
 			          .antMatchers(HttpMethod.PUT, "/members/update/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
 			          .antMatchers(HttpMethod.DELETE, "/members/delete/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
-                
+
+
+				//contacts
+				.antMatchers(HttpMethod.GET, "/contacts").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(HttpMethod.POST, "/contacts").permitAll()
+                // comments
+                .antMatchers(HttpMethod.POST, "/comments").permitAll()
+
+                //slides
+                .antMatchers(HttpMethod.POST,"/Slides").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.PUT,"/Slides/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.DELETE,"/Slides/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+
 	       	 /*agregar autorizaciones a los endpoints pendientes en desarrollo
 
 	         *EJEMPLO:
@@ -104,4 +117,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
-

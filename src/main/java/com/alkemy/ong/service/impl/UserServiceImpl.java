@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-   
+
 
     @Transactional
     @Override
@@ -49,5 +49,16 @@ public class UserServiceImpl implements UserService {
 
 
         return userMapper.userEntityDtoList(usersEntities);
+    }
+
+    @Override
+    public boolean ExistsUserById(Long id) {
+        return userRepository.existsById(id);
+    }
+
+    @Override
+    public UserEntity findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "the searched user does not exist"));
     }
 }

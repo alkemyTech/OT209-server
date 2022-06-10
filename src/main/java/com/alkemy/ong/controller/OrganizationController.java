@@ -1,16 +1,20 @@
 
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.exception.OrgNotFoundException;
 import com.alkemy.ong.models.response.DateOrganizationResponse;
+import com.alkemy.ong.models.response.OrganizationDTO;
 import com.alkemy.ong.service.OrganizationService;
 import io.swagger.annotations.Api;
 import java.util.List;
+
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/organization")
@@ -24,5 +28,22 @@ public class OrganizationController {
     @GetMapping("/public")
     public List<DateOrganizationResponse> getOrganizationInfo(){
         return organizationService.getOrganizationInfo();
+    }
+
+
+    @PutMapping("public/{id}")
+    public ResponseEntity<Object> save(@Valid @RequestBody Long id, OrganizationDTO dto)  {
+
+
+        OrganizationDTO dtoReturned = null;
+        try {
+            dtoReturned = this.organizationService.update(id, dto);
+        } catch (OrgNotFoundException e) {
+
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+        return ResponseEntity.ok().body(dtoReturned);
     }
 }

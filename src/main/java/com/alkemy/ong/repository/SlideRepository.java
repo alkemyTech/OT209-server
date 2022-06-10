@@ -12,14 +12,9 @@ import java.util.List;
 
 @Repository
 public interface SlideRepository extends JpaRepository<Slide, Long> {
-//    @Query(value = "SELECT MAX(s.numberOrder) FROM Slide s")
-//    int maxOrder();
 
-	Slide findBySlideOrder(int sildeOrder);
-//    default Slide findByNumberOrder(int numberOrder) {
-//        return null;
-//    }
-//
+	Slide findBySlideOrder(int slideOrder);
+
     Slide getById(Long id);
 //
 //
@@ -29,5 +24,9 @@ public interface SlideRepository extends JpaRepository<Slide, Long> {
 	Slide findTopByOrderBySlideOrderDesc();
 	
 	List<Slide> findByOrganizationIdIs(Long id);
+
+	boolean existsById(Long id);
+
+	boolean existsBySlideOrder(int order);
 }
 

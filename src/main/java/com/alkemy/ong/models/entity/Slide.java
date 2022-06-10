@@ -34,11 +34,10 @@ public class Slide {
     @Column(nullable = false)
     private String imageUrl;
 
-    @NotEmpty(message = "El campo text debe completarlo")
-    @NotBlank
+    //@NotEmpty(message = "El campo text debe completarlo")
+    //@NotBlank
     @Column()
     private String text;
-
 
     @Column()
     private int slideOrder;

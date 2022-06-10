@@ -11,4 +11,6 @@ import com.alkemy.ong.models.entity.CommentEntity;
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 	
 	List<CommentEntity> findAllByOrderByDateDesc();
+
+	 boolean existsById(Long id);
 }
