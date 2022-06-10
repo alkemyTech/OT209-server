@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "1d4ddbc1-d9c0-4d91-b494-b5c6af86e47c",
+		"name": "Slides",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Slide",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTQ4NzE2MDMsImV4cCI6MTY1NDkzMjA4M30.xQDbFb-UuZAkCot3vQIT3UKYms-z0YEFkIaXAlFCQuHVRymYKfPENmyAT5Nr2LKcsoRlqCess9XLxzUQtkhSVg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"imageUrl\": \"ksjhfkhagkjehklghaerlkjghakejrg\",\r\n    \"order\":1,\r\n    \"text\": \"khajg ahdahg jkkfghakreh jhgkaljh kjahga\",\r\n    \"organizationId\":1,\r\n    \"encodeImg\":\"jkfgjskhkshbkshfgkshdfkghdfkjhdgkjh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/Slides/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Slides",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Slide",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Slide",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
