@@ -2,6 +2,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.exception.OrgNotFoundException;
+import com.alkemy.ong.models.request.DateOrganizationRequest;
 import com.alkemy.ong.models.response.DateOrganizationResponse;
 import com.alkemy.ong.models.response.OrganizationDTO;
 import com.alkemy.ong.service.OrganizationService;
@@ -11,6 +12,7 @@ import java.util.List;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,14 +27,19 @@ public class OrganizationController {
     
     @Autowired
     private OrganizationService organizationService;
+    
     @GetMapping("/public")
     public List<DateOrganizationResponse> getOrganizationInfo(){
         return organizationService.getOrganizationInfo();
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<String> create(@Valid @RequestBody DateOrganizationRequest request){
+    	return ResponseEntity.status(HttpStatus.CREATED).body(this.organizationService.create(request));
+    }
 
-    @PutMapping("public/{id}")
-    public ResponseEntity<Object> save(@Valid @RequestBody Long id, OrganizationDTO dto)  {
+    @PutMapping("/public/{id}")
+    public ResponseEntity<Object> save(@PathVariable("id") Long id, @Valid @RequestBody OrganizationDTO dto)  {
 
 
         OrganizationDTO dtoReturned = null;
@@ -46,4 +53,7 @@ public class OrganizationController {
 
         return ResponseEntity.ok().body(dtoReturned);
     }
+    
+    
+    
 }
