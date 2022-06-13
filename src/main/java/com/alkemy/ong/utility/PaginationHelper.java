@@ -1,27 +1,28 @@
 package com.alkemy.ong.utility;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Component
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class PaginationHelper {
+	private UriComponentsBuilder uriComponentsBuilder;
+	private Page<?> dataPage;
+	private int offsetInitial;
 	
-	public Map<String, String> generarpaginadorespuesta(UriComponentsBuilder uriComponentsBuilder, String path, String uriNextPage, String uriPrevPage, Page<?> dataPage, int offsetBase10) {
-		uriComponentsBuilder.path(path);
-		if(dataPage.hasNext()) {
-			uriNextPage = uriComponentsBuilder.replaceQueryParam("page", offsetBase10 + 1).build().encode().toUriString();			
+	
+	public String getUriNext() {
+		if(this.dataPage.hasNext()) {
+			return uriComponentsBuilder.replaceQueryParam("page", (this.offsetInitial +1)).build().encode().toUriString();
 		}
-		if(dataPage.hasPrevious()) {
-			uriPrevPage = uriComponentsBuilder.replaceQueryParam("page", offsetBase10 - 1).build().encode().toUriString();			
-		}
-		Map<String, String> response = new HashMap<>();
-		response.put("prev", uriPrevPage);
-		response.put("next", uriNextPage);
-		return response;
-		
+		return "";
 	}
+	public String getUriPrev() {
+		if(this.dataPage.hasPrevious()) {
+			return uriComponentsBuilder.replaceQueryParam("page", (this.offsetInitial -1)).build().encode().toUriString();
+		}
+		return "";
+	}
+
 }

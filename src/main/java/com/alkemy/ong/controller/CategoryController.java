@@ -43,7 +43,7 @@ public class CategoryController {
 			UriComponentsBuilder uriComponentsBuilder
 			){
 		
-		PageCategoryResponse response = categoryService.getCategories((offset -1), uriComponentsBuilder, CATEGORIES_PATH);
+		PageCategoryResponse response = categoryService.getCategories(offset, uriComponentsBuilder, CATEGORIES_PATH);
 		return ResponseEntity.ok(response);
 	}
 	

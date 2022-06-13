@@ -1,15 +1,11 @@
 package com.alkemy.ong.service.impl;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -31,32 +27,14 @@ public class CategoryServiceImpl implements CategoryService{
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private CategoryMapper categoryMapper;
-	@Autowired
-	private PaginationHelper paginationHelper;
 	
 	@Override
 	public PageCategoryResponse getCategories(int offset, UriComponentsBuilder uriComponentsBuilder, String path) {
-		int offsetBase10 = offset + 1;
-		String uriNextPage = "";
-		String uriPrevPage = "";
-		
-		Page<CategoryEntity> dataPage = categoryRepository.findAll(PageRequest.of(offset, 10));
-		
-		Map<String, String> UriInfo = paginationHelper.generarpaginadorespuesta(uriComponentsBuilder, path, uriNextPage, uriPrevPage, dataPage, offsetBase10);
-		
-		uriNextPage = paginationHelper.generarpaginadorespuesta(uriComponentsBuilder, path, uriNextPage, uriPrevPage, dataPage, offsetBase10).get("next");
-		uriPrevPage = paginationHelper.generarpaginadorespuesta(uriComponentsBuilder, path, uriNextPage, uriPrevPage, dataPage, offsetBase10).get("prev");
-//		uriComponentsBuilder.path(path);
-//		if(dataPage.hasNext()) {
-//			uriNextPage = uriComponentsBuilder.replaceQueryParam("page", offsetBase10 + 1).build().encode().toUriString();			
-//		}
-//		if(dataPage.hasPrevious()) {
-//			uriPrevPage = uriComponentsBuilder.replaceQueryParam("page", offsetBase10 - 1).build().encode().toUriString();			
-//		}
-		
+		Page<CategoryEntity> dataPage = categoryRepository.findAll(PageRequest.of((offset -1), 10));		
 		List<CategoryBasicResponse> dtos = categoryMapper.categoryEntityList2DTOList(dataPage.getContent());
 		
-		return new PageCategoryResponse(dtos, uriPrevPage, uriNextPage);
+		PaginationHelper uriUtil = new PaginationHelper(uriComponentsBuilder.path(path), dataPage, offset);   
+		return new PageCategoryResponse(dtos, uriUtil.getUriPrev(), uriUtil.getUriNext());
 	}
 
 
