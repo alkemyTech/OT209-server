@@ -87,4 +87,8 @@ public class UserEntity {
     	this.setTimestamp(cTimestamp);
     	this.setRol(cRoles);
     }
+
+    public UserEntity(String ronald, String kathleen, String ronaldemailgmailcom, String encode) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

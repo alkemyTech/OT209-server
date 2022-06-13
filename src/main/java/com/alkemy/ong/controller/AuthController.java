@@ -9,6 +9,7 @@ import com.alkemy.ong.service.AuthService;
 import javax.validation.Valid;
 
 import com.alkemy.ong.service.EmailService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
+@Api(value = "Authentication controller", description = "This API has a Authenticated for users")
 
 public class AuthController {
 	@Autowired

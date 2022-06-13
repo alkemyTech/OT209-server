@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.alkemy.ong.auth.filter.JwtAuthenticationFilter;
 import com.alkemy.ong.auth.service.CustomUserDetailsService;
 import com.alkemy.ong.auth.utility.RoleEnum;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -25,7 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -48,11 +48,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         managerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    private static final String[] publicEndpoint = {
+        "/swagger-resources/**",
+        "/swagger-ui/**", "/v2/api-docs",
+        "/v3/api-docs",
+        "/api/docs",
+        "/api/docs/**",
+        "/api/docs/swagger-ui",
+        "/swagger-ui.html",
+        "/**/swagger-ui/**",
+        "/swagger-ui"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .exceptionHandling()
-                .and()
+                .cors()
+                .and()   
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -62,15 +74,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
                 //organization
                 .antMatchers(HttpMethod.GET, "/organization/public").permitAll()
-                .antMatchers(HttpMethod.PUT,"/organization/public").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-                .antMatchers(HttpMethod.POST,"/organization/create").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.PUT, "/organization/public").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/organization/create").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                 //ong
                 .antMatchers(HttpMethod.POST, "/ong/activities").permitAll()
                 //users
                 .antMatchers(HttpMethod.DELETE, "/users/{id}").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/users/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/users").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-                 //categiries
+                //categiries
                 .antMatchers(HttpMethod.GET, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                 .antMatchers(HttpMethod.POST, "/categories").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                 .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
@@ -93,22 +105,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/members/list").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
                 .antMatchers(HttpMethod.PUT, "/members/update/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
                 .antMatchers(HttpMethod.DELETE, "/members/delete/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
-
-
-				//contacts
-				.antMatchers(HttpMethod.GET, "/contacts").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-				.antMatchers(HttpMethod.POST, "/contacts").permitAll()
+                //contacts
+                .antMatchers(HttpMethod.GET, "/contacts").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/contacts").permitAll()
                 // comments
                 .antMatchers(HttpMethod.POST, "/comments").permitAll()
-
                 //slides
-                .antMatchers(HttpMethod.POST,"/Slides").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-                .antMatchers(HttpMethod.PUT,"/Slides/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-                .antMatchers(HttpMethod.DELETE,"/Slides/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-                .antMatchers(HttpMethod.GET,"/Slides").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-                .antMatchers(HttpMethod.GET,"/Slides/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-
-	       	 /*agregar autorizaciones a los endpoints pendientes en desarrollo
+                .antMatchers(HttpMethod.POST, "/Slides").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.PUT, "/Slides/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.DELETE, "/Slides/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.GET, "/Slides").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.GET, "/Slides/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(publicEndpoint).permitAll()
+                /*agregar autorizaciones a los endpoints pendientes en desarrollo
 
 	         *EJEMPLO:
 	         * PARA TODOS:
@@ -119,8 +128,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	         * .antMatchers(HttpMethod.<TIPO>, "<endpoint>").hasRole(RoleEnum.ADMIN.getSimpleRoleName);
                  */
                 .anyRequest()
-                .authenticated();
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
+                .authenticated()
+                .and()
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+ 
+           }
 
 }

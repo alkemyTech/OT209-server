@@ -2,8 +2,7 @@ package com.alkemy.ong.models.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import lombok.Builder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity @Table(name = "activities")
+@Builder
 public class ActivityEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

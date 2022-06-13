@@ -3,6 +3,7 @@ package com.alkemy.ong.controller;
 import com.alkemy.ong.models.request.ActivityRequest;
 import com.alkemy.ong.models.response.ActivityResponse;
 import com.alkemy.ong.service.ActivityService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 @RequestMapping("/ong")
 @CrossOrigin("*")
 @RequiredArgsConstructor
+@Api(value = "Activity controller", description = "This API has a Activity for users")
 public class ActivityController {
 
     private final ActivityService activityService;
