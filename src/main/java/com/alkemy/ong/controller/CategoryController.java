@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.alkemy.ong.models.request.CategoryRequest;
 import com.alkemy.ong.models.response.CategoryBasicResponse;
 import com.alkemy.ong.models.response.CategoryResponse;
+import com.alkemy.ong.models.response.PageCategoryResponse;
 import com.alkemy.ong.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,12 +32,18 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin("*")
 @RequiredArgsConstructor
 public class CategoryController {
+	
+	private static final String CATEGORIES_PATH = "/categories";
 	@Autowired
 	private CategoryService categoryService;
 	
 	@GetMapping
-	public ResponseEntity<List<CategoryBasicResponse>> getAll(){
-		List<CategoryBasicResponse> response = categoryService.getCategories();
+	public ResponseEntity<PageCategoryResponse> getAll(
+			@RequestParam(value = "page") int offset, 
+			UriComponentsBuilder uriComponentsBuilder
+			){
+		
+		PageCategoryResponse response = categoryService.getCategories((offset -1), uriComponentsBuilder, CATEGORIES_PATH);
 		return ResponseEntity.ok(response);
 	}
 	
