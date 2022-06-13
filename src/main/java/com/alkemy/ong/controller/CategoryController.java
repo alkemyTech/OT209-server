@@ -1,7 +1,5 @@
 package com.alkemy.ong.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.alkemy.ong.models.request.CategoryRequest;
-import com.alkemy.ong.models.response.CategoryBasicResponse;
 import com.alkemy.ong.models.response.CategoryResponse;
 import com.alkemy.ong.models.response.PageCategoryResponse;
 import com.alkemy.ong.service.CategoryService;
@@ -36,14 +33,14 @@ public class CategoryController {
 	private static final String CATEGORIES_PATH = "/categories";
 	@Autowired
 	private CategoryService categoryService;
-	
+		
 	@GetMapping
 	public ResponseEntity<PageCategoryResponse> getAll(
-			@RequestParam(value = "page") int offset, 
+			@RequestParam(value = "page") int offset,
 			UriComponentsBuilder uriComponentsBuilder
 			){
 		
-		PageCategoryResponse response = categoryService.getCategories(offset, uriComponentsBuilder, CATEGORIES_PATH);
+		PageCategoryResponse response = categoryService.getCategories(offset, uriComponentsBuilder.path(CATEGORIES_PATH));
 		return ResponseEntity.ok(response);
 	}
 	

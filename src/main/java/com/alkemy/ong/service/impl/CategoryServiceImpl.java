@@ -29,11 +29,12 @@ public class CategoryServiceImpl implements CategoryService{
 	private CategoryMapper categoryMapper;
 	
 	@Override
-	public PageCategoryResponse getCategories(int offset, UriComponentsBuilder uriComponentsBuilder, String path) {
-		Page<CategoryEntity> dataPage = categoryRepository.findAll(PageRequest.of((offset -1), 10));		
+	public PageCategoryResponse getCategories(int offset, UriComponentsBuilder uriComponentsBuilder) {
+		Page<CategoryEntity> dataPage = categoryRepository.findAll(PageRequest.of((offset -1), 10));	
 		List<CategoryBasicResponse> dtos = categoryMapper.categoryEntityList2DTOList(dataPage.getContent());
+
+		PaginationHelper uriUtil = new PaginationHelper(uriComponentsBuilder, dataPage.getTotalPages(), offset);
 		
-		PaginationHelper uriUtil = new PaginationHelper(uriComponentsBuilder.path(path), dataPage, offset);   
 		return new PageCategoryResponse(dtos, uriUtil.getUriPrev(), uriUtil.getUriNext());
 	}
 
