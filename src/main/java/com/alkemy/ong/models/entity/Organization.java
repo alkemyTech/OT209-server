@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
+import lombok.Builder;
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
@@ -19,6 +18,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity
+@Builder
 public class Organization {
 
 	@Id
