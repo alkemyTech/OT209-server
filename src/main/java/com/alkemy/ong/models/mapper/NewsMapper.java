@@ -1,12 +1,39 @@
 package com.alkemy.ong.models.mapper;
 
+import com.alkemy.ong.models.entity.CategoryEntity;
 import com.alkemy.ong.models.entity.NewsEntity;
 import com.alkemy.ong.models.request.NewsRequest;
+import com.alkemy.ong.models.response.CategoryBasicResponse;
+import com.alkemy.ong.models.response.NewsBasicResponse;
 import com.alkemy.ong.models.response.NewsDetailsResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class NewsMapper {
+
+    @Autowired
+    CategoryMapper categoryMapper;
+
+    public List<NewsBasicResponse> newsEntityList2NewsBasicResponseList(List<NewsEntity> entities){
+        List<NewsBasicResponse> dtos = new ArrayList<>();
+
+        for (NewsEntity entity : entities) {
+            NewsBasicResponse basicDto = new NewsBasicResponse();
+            basicDto.setName(entity.getName());
+            basicDto.setId(entity.getId());
+            basicDto.setImage(entity.getImage());
+            basicDto.setContent(entity.getContent());
+            basicDto.setCategory(categoryMapper.categoryEntity2DTO(entity.getCategory()));
+            dtos.add(basicDto);
+
+        }
+        return dtos;
+
+    }
 
     public NewsEntity newsRequest2NewsEntity (NewsRequest request){
         NewsEntity entity = new NewsEntity();
@@ -23,8 +50,7 @@ public class NewsMapper {
                 .image(entity.getImage())
                 .content(entity.getContent())
                 .categoryId(entity.getCategoryId())
-                .category(entity.getCategory())
-                .timestamp(entity.getTimestamp())
+                .category(categoryMapper.categoryEntity2DTO(entity.getCategory()))
                 .id(entity.getId())
                 .build();
     }
