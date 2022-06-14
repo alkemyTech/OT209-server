@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.models.entity.CategoryEntity;
@@ -15,8 +15,10 @@ import com.alkemy.ong.models.mapper.CategoryMapper;
 import com.alkemy.ong.models.request.CategoryRequest;
 import com.alkemy.ong.models.response.CategoryBasicResponse;
 import com.alkemy.ong.models.response.CategoryResponse;
+import com.alkemy.ong.models.response.PageCategoryResponse;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
+import com.alkemy.ong.utility.PaginationHelper;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
@@ -27,11 +29,13 @@ public class CategoryServiceImpl implements CategoryService{
 	private CategoryMapper categoryMapper;
 	
 	@Override
-	public List<CategoryBasicResponse> getCategories() {
-		List<CategoryEntity> entities = categoryRepository.findAll();
-		List<CategoryBasicResponse> dtos = categoryMapper.categoryEntityList2DTOList(entities);
+	public PageCategoryResponse getCategories(int offset, UriComponentsBuilder uriComponentsBuilder) {
+		Page<CategoryEntity> dataPage = categoryRepository.findAll(PageRequest.of((offset -1), 10));	
+		List<CategoryBasicResponse> dtos = categoryMapper.categoryEntityList2DTOList(dataPage.getContent());
+
+		PaginationHelper uriUtil = new PaginationHelper(uriComponentsBuilder, dataPage.getTotalPages(), offset);
 		
-		return dtos;
+		return new PageCategoryResponse(dtos, uriUtil.getUriPrev(), uriUtil.getUriNext());
 	}
 
 

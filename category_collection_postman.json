@@ -60,18 +60,33 @@
 				{
 					"name": "categories/",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTQ5OTkxMzgsImV4cCI6MTY1NTA1OTYxOH0.XqLiM90H_VChThH5WnF3Sxy6f1sguQQAjMH81Gx26cYScNTEw-XNhKn_DJf1kx0xFB7nYYrfdXa0XLHuaXXEYw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/categories/",
+							"raw": "http://localhost:8080/categories?page=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"categories",
-								""
+								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
 							]
 						}
 					},
