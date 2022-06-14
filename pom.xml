@@ -71,21 +71,15 @@
         <!-- swagger-->
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.5.20</version>
-            <type>jar</type>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox-spring-web</artifactId>
+            <artifactId>springfox-swagger-ui</artifactId>
             <version>3.0.0</version>
-            <type>jar</type>
         </dependency>
+  
         <!-- end swagger-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
