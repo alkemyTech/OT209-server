@@ -77,7 +77,6 @@ public class NewsController {
     public ResponseEntity<NewsDetailsResponse> create(@Valid @RequestBody
                                                           @ApiParam(
                                                           name =  "New News",
-                                                          type = "NewsRequest",
                                                           value = "News to save",
                                                           required = true)
                                                           NewsRequest newsRequest){
@@ -101,7 +100,6 @@ public class NewsController {
                                                        @Valid @RequestBody
                                                            @ApiParam(
                                                            name =  "New News",
-                                                           type = "NewsRequest",
                                                            value = "News to save",
                                                            required = true) NewsRequest newsRequest){
         if(newsService.itExists(id)){
