@@ -1,16 +1,26 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.models.entity.Testimonial;
 import com.alkemy.ong.models.mapper.TestimonialMapper;
 import com.alkemy.ong.models.request.TestimonialRequest;
+import com.alkemy.ong.models.response.PageTestimonialResponse;
 import com.alkemy.ong.models.response.TestimonialResponse;
 import com.alkemy.ong.repository.TestimonialRepository;
 import com.alkemy.ong.service.TestimonialService;
 import javax.transaction.Transactional;
+
+import com.alkemy.ong.utility.PaginationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TestimonialServiceImpl implements TestimonialService {
@@ -53,6 +63,26 @@ public class TestimonialServiceImpl implements TestimonialService {
     public Testimonial findById(Long id) {
         return testimonialRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                 "the searched testimonial does not exist"));
+    }
+
+    @Override
+    public PageTestimonialResponse getTestimonials(int offset, UriComponentsBuilder uriComponentsBuilder) {
+
+        Page<Testimonial> dataPage = testimonialRepository.findAll(PageRequest.of((offset - 1), 10));
+        List<TestimonialResponse> dtos = testimonialMapper.testimonialEntityList2DTOList(dataPage.getContent());
+
+        PaginationHelper uriUtil = new PaginationHelper(uriComponentsBuilder, dataPage.getTotalPages(), offset);
+
+        return new PageTestimonialResponse(dtos, uriUtil.getUriPrev(), uriUtil.getUriNext());
+    }
+
+    @Override
+    public TestimonialResponse getTestimonial(Long id) {
+        Optional<Testimonial> entity = testimonialRepository.findById(id);
+        if(!entity.isPresent()) {
+            throw new ParamNotFound(String.format("Id %s not found in testimonials", id));
+        }
+        return testimonialMapper.toDto(entity.get());
     }
 
 }

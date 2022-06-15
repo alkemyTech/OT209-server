@@ -2,27 +2,24 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.models.request.TestimonialRequest;
+import com.alkemy.ong.models.response.PageTestimonialResponse;
 import com.alkemy.ong.models.response.TestimonialResponse;
 import com.alkemy.ong.service.TestimonialService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/testimonials")
 @RequiredArgsConstructor
 public class TestimonialController {
-    
+
+    private static final String TESTIMONIALS_PATH = "/testimonials";
+
     private final TestimonialService testimonialService;
     
     @PostMapping("")
@@ -41,5 +38,21 @@ public class TestimonialController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
         testimonialService.delete(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<PageTestimonialResponse> getAll(
+            @RequestParam(value = "page") int offset,
+            UriComponentsBuilder uriComponentsBuilder
+    ){
+
+        PageTestimonialResponse response = testimonialService.getTestimonials(offset, uriComponentsBuilder.path(TESTIMONIALS_PATH));
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TestimonialResponse> getDetail(@PathVariable Long id){
+        TestimonialResponse response = testimonialService.getTestimonial(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
