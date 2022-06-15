@@ -1,16 +1,19 @@
 {
 	"info": {
-		"_postman_id": "73b1f710-1a37-486b-ba42-6aaf845f8e88",
+		"_postman_id": "866e6f5f-2cac-4894-8b0e-e29b199edbee",
 		"name": "members",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "15968083"
+		"_exporter_id": "17496748"
 	},
 	"item": [
 		{
 			"name": "get members",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -18,7 +21,10 @@
 			"name": "post members",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -26,7 +32,10 @@
 			"name": "actualizar members",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -34,7 +43,10 @@
 			"name": "eliminar members",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		}
