@@ -4,11 +4,10 @@ package com.alkemy.ong.models.request;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Builder;
 
-@Getter @Setter @Builder
+import lombok.*;
+
+@Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
 public class TestimonialRequest {
     	@NotBlank
 	@NotNull(message = "the name can't be null")

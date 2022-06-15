@@ -1,18 +1,14 @@
 
 package com.alkemy.ong.models.mapper;
 
-import com.alkemy.ong.models.entity.CategoryEntity;
 import com.alkemy.ong.models.entity.Testimonial;
 import com.alkemy.ong.models.request.TestimonialRequest;
-import com.alkemy.ong.models.response.CategoryBasicResponse;
 import com.alkemy.ong.models.response.TestimonialResponse;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.joda.time.LocalDate;
-import org.springframework.stereotype.Component;
 
 
 
@@ -52,11 +48,11 @@ public class TestimonialMapper {
         List<TestimonialResponse> dtos = new ArrayList<>();
 
         for (Testimonial testimonialEntity : entities) {
-            TestimonialResponse basicDto = null;
+            TestimonialResponse basicDto = new TestimonialResponse();
             basicDto.setName(testimonialEntity.getName());
             basicDto.setImage(testimonialEntity.getImage());
             basicDto.setContent(testimonialEntity.getContent());
-            basicDto.setDate(testimonialEntity.getDate().toLocalDate());
+            //basicDto.setDate(testimonialEntity.getDate().toLocalDate());
             dtos.add(basicDto);
 
         }
