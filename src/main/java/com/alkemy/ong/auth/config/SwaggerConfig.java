@@ -20,6 +20,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class SwaggerConfig {
 
 
+    public static final String NEWS_CONTROLLER = "News!";
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -29,7 +31,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .tags(new Tag(NEWS_CONTROLLER, "Services for creating, reading, updating and deleting news"));
 
     }
   

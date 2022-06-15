@@ -3,20 +3,20 @@
 
 ## El equipo de Desarrollo 🖥️
 
-* **Gabrie Navarro** - [LinkedIn](linkedin.com/in/gabriel-navarro-233388219 ) - [GitHub](https://github.com/gabynavarro)
-* **otro ** - [LinkedIn]() - [GitHub]()
+* **Gabriel Navarro** - [LinkedIn](https://linkedin.com/in/gabriel-navarro-233388219 ) - [GitHub](https://github.com/gabynavarro)
+* **Pablo Leyes** - [LinkedIn](https://www.linkedin.com/in/pablo-nahuel-leyes-989b71211/) - [GitHub](https://github.com/Yaguaret3)
 * **otro ** - [LinkedIn]() - [GitHub]()
 * **otro ** - [LinkedIn]() - [GitHub]()
 * **otro ** - [LinkedIn]() - [GitHub]()
 
 ## ESTE PROYECTO ES PARTE DE LA ACELERACIÓN DE [ALKEMY](https://www.alkemy.org/) ❤️
 
-* Nuestro agradecimiento para ellos que brindaron esta oportunidad y nos facilitan el camino para ingresar al mundo laboral IT.
+* Nuestro agradecimiento para quienes nos brindaron esta oportunidad y nos facilitan el camino para ingresar al mundo laboral IT.
 
 ### Objetivo
 
 Proyecto ONG - Somos más. 
-Desarrollar una API como parte de un equipo de desarrolladores, deberás desarrollar un sitio que represente a la organización de Marita y el gran esfuerzo que su equipo realiza a la comunidad.
+Desarrollar una API como parte de un equipo de desarrolladores. Desarrollar un sitio que represente a la organización de Marita y el gran aporte que su equipo realiza para la comunidad.
 
 ### Herramientas utilizadas
 - 👉 Java y Spring Boot
@@ -42,7 +42,7 @@ Desarrollar una API como parte de un equipo de desarrolladores, deberás desarro
 ## Requerimientos técnicos
 ## 1. A. Modelado de Base de Datos
 
-Además de las caracteristicas descriptas a continucación las entidades cuentan con columnas referidas a: softDelete, modifiedDate y createDate.
+Además de las características descritas a continuación las entidades cuentan con columnas referidas a: softDelete, modifiedDate y createDate.
 
 **UserEntity:**  deberá tener:
     
@@ -69,7 +69,7 @@ Además de las caracteristicas descriptas a continucación las entidades cuentan
     - content.
     - image.
 
-**Cagegory:** deberá tener:
+**Category:** deberá tener:
 
     - id.
     - name.
@@ -198,7 +198,7 @@ ROLES SEED
 
 
 ## 1. C. Role Admin
-### PATHS habilitados solo para usuarios con ROLE_ADMIN, los demás paths que no están expresamente incluidos en la lista pueden ser accedidos por usuarios con ROLE_USER.
+### PATHS habilitados solamente para usuarios con ROLE_ADMIN, los demás paths que no están expresamente incluidos en la lista pueden ser accedidos por usuarios con ROLE_USER.
 
 | METHOD | ROLE_ADMIN                                    |
 |--------|-----------------------------------------------|
@@ -236,7 +236,7 @@ ROLES SEED
 ---------------------------
 
 ## 2. Autenticación de Usuarios
-El usuario despues de registrarse y logearse, obteniene un token, el cual es necesario y requerido para acceder a los demás paths, una vez que pasa 30 minutos el token queda desactualizado o vencido, lo que obliga a que el usuario vuelva a generarlo mediante un nuevo login.
+Después de registrarse e iniciar sesión, obtiene un token, requerido para acceder a los demás paths. Una vez que pasan 30 minutos el token queda desactualizado o vencido, lo que obliga a que el usuario vuelva a generarlo mediante un nuevo login.
 
 ### POST (registro)
 	http://localhost:8080/auth/register
@@ -289,7 +289,7 @@ Body:
 
 ## 3. Categories
 
-### POST (creación entidad)
+### POST (creación de entidad)
 	http://localhost:8080/categories
 
 Ejemplo:
@@ -300,7 +300,7 @@ Ejemplo:
         "image": "url.com/image.jpg"
     }
 
-### PUT (actualización entidad)
+### PUT (actualización de entidad)
 
 	http://localhost:8080/categories/{id}
 
@@ -319,7 +319,7 @@ Body:
         "image": "url.com/image.jpg"
     }
 
-### DELETE (eliminar entidad)
+### DELETE (eliminación de entidad)
 
 	http://localhost:8080/categories/{id}
 
@@ -327,7 +327,7 @@ Ejemplo:
 
     http://localhost:8080/categories/1
 
-### GET (buscar una entidad)
+### GET (consulta de una entidad por id)
 
 	http://localhost:8080/categories/{id}
 
@@ -335,7 +335,7 @@ Ejemplo:
 
     http://localhost:8080/categories/1
 
-### GET (lista de entidades)
+### GET (listado de entidades)
 
 	http://localhost:8080/categories/
 
@@ -346,7 +346,7 @@ Ejemplo:
 
 ## 4. Testimonial
 
-### POST (creación entidad)
+### POST (creación de entidad)
 	http://localhost:8080/testimonials
 
 Ejemplo:
@@ -357,7 +357,7 @@ Ejemplo:
         "content": "I love this ONG"
     }
 
-### PUT (actualización entidad)
+### PUT (actualización de entidad)
 
 	http://localhost:8080/testimonials/{id}
 
@@ -376,7 +376,7 @@ Body:
         "content": "I love this ONG"
     }
 
-### DELETE (eliminar entidad)
+### DELETE (eliminación de entidad)
 
 	http://localhost:8080/testimonials/{id}
 
@@ -384,7 +384,7 @@ Ejemplo:
 
     http://localhost:8080/testimonials/1
 
-### GET (buscar una entidad)
+### GET (consulta de una entidad por id)
 
 	http://localhost:8080/testimonials/{id}
 
@@ -392,9 +392,9 @@ Ejemplo:
 
     http://localhost:8080/testimonials/1
 
-### GET (lista paginadas de entidades)
+### GET (lista de entidades paginadas)
 
-	http://localhost:8080/testimonials/{page}
+	http://localhost:8080/testimonials?page={param}
 
 Ejemplo:
 
@@ -407,7 +407,7 @@ Ejemplo:
 
 ## 5. Slide
 
-### POST (creación entidad)
+### POST (creación de entidad)
 	http://localhost:8080/slides
 
 Ejemplo:
@@ -418,7 +418,7 @@ Ejemplo:
         "order": 1
     }
 
-### PUT (actualización entidad)
+### PUT (actualización de entidad)
 
 	http://localhost:8080/slides/{id}
 
@@ -437,7 +437,7 @@ Body:
       "order": 3
     }
 
-### DELETE (eliminar entidad)
+### DELETE (eliminación de entidad)
 
 	http://localhost:8080/slides/{id}
 
@@ -445,7 +445,7 @@ Ejemplo:
 
     http://localhost:8080/slides/1
 
-### GET (buscar una entidad)
+### GET (consulta de una entidad por id)
 
 	http://localhost:8080/slides/{id}
 
@@ -453,9 +453,9 @@ Ejemplo:
 
     http://localhost:8080/slides/1
 
-### GET (lista paginadas de entidades)
+### GET (lista de entidades paginadas)
 
-	http://localhost:8080/slides/{page}
+	http://localhost:8080/slides?page?{param}
 
 Ejemplo:
 
@@ -465,7 +465,7 @@ Ejemplo:
 
 ## 6. Organization
 
-### POST (creación entidad)
+### POST (creación de entidad)
 	http://localhost:8080/organization
 
 Ejemplo:
@@ -483,7 +483,7 @@ Ejemplo:
         "aboutUsText": "we are Somosmas fundation"
     }
 
-### PUT (actualización entidad)
+### PUT (actualización de entidad)
 
 	http://localhost:8080/organization/{id}
 
@@ -522,7 +522,7 @@ Body:
 
 ## 7. News
 
-### POST (creación entidad)
+### POST (creación de entidad)
 	http://localhost:8080/news
 
 Ejemplo:
@@ -533,7 +533,7 @@ Ejemplo:
         "image": "url.com/image.jpg"
     }
 
-### PUT (actualización entidad)
+### PUT (actualización de entidad)
 
 	http://localhost:8080/news/{id}
 
@@ -551,7 +551,7 @@ Body:
         "image": "url.com/image.jpg"
     }
 
-### DELETE (eliminar entidad)
+### DELETE (eliminación de entidad)
 
 	http://localhost:8080/news/{id}
 
@@ -559,7 +559,7 @@ Ejemplo:
 
     http://localhost:8080/news/1
 
-### GET (buscar una entidad)
+### GET (consulta de una entidad por id)
 
 	http://localhost:8080/news/{id}
 
@@ -567,9 +567,9 @@ Ejemplo:
 
     http://localhost:8080/news/1
 
-### GET (lista paginadas de entidades)
+### GET (lista de entidades paginadas)
 
-	http://localhost:8080/news/{page}
+	http://localhost:8080/news?page={param}
 
 Ejemplo:
 
@@ -583,7 +583,7 @@ Ejemplo:
 
 ## 8. Member
 
-### POST (creación entidad)
+### POST (creación de entidad)
 	http://localhost:8080/members
 
 Ejemplo:
@@ -597,7 +597,7 @@ Ejemplo:
         "description": "Hello my name is Andres"
     }
 
-### PUT (actualización entidad)
+### PUT (actualización de entidad)
 
 	http://localhost:8080/members/{id}
 
@@ -618,7 +618,7 @@ Body:
         "description": "Hello my name is Adrian Romero"
     }
 
-### DELETE (eliminar entidad)
+### DELETE (eliminación de entidad)
 
 	http://localhost:8080/members/{id}
 
@@ -626,7 +626,7 @@ Ejemplo:
 
     http://localhost:8080/members/1
 
-### GET (buscar una entidad)
+### GET (consulta de una entidad por id)
 
 	http://localhost:8080/members/{id}
 
@@ -634,9 +634,9 @@ Ejemplo:
 
     http://localhost:8080/members/1
 
-### GET (lista paginadas de entidades)
+### GET (lista de entidades paginadas)
 
-	http://localhost:8080/members/{page}
+	http://localhost:8080/members?page={param}
 
 Ejemplo:
 
@@ -649,7 +649,7 @@ Ejemplo:
 
 ## 9. Comment
 
-### POST (creación entidad)
+### POST (creación de entidad)
 	http://localhost:8080/comments
 
 Ejemplo:
@@ -661,7 +661,7 @@ Ejemplo:
         "newsId": 7
     }
 
-### PUT (actualización entidad)
+### PUT (actualización de entidad)
 
 	http://localhost:8080/comments/{id}
 
@@ -681,7 +681,7 @@ Body:
         "newsId": 8
     }
 
-### DELETE (eliminar entidad)
+### DELETE (eliminación de entidad)
 
 	http://localhost:8080/comments/{id}
 
@@ -689,7 +689,7 @@ Ejemplo:
 
     http://localhost:8080/comments/1
 
-### GET (buscar una entidad)
+### GET (consulta de una entidad por id)
 
 	http://localhost:8080/comments/posts/{id}/comments
 
@@ -697,9 +697,9 @@ Ejemplo:
 
     http://localhost:8080/comments/posts/1/comments
 
-### GET (lista paginadas de entidades)
+### GET (lista de entidades paginadas)
 
-	http://localhost:8080/comments/{page}
+	http://localhost:8080/comments?page={param}
 
 Ejemplo:
 
@@ -713,7 +713,7 @@ Ejemplo:
 
 ## 10. Activity
 
-### POST (creación entidad)
+### POST (creación de entidad)
 	http://localhost:8080/activities
 
 Ejemplo:
@@ -724,7 +724,7 @@ Ejemplo:
         "image": "url.com/image.jpg"
     }
 
-### PUT (actualización entidad)
+### PUT (actualización de entidad)
 
 	http://localhost:8080/activities/{id}
 
@@ -747,7 +747,7 @@ Body:
 
 ## 11. Contact
 
-### POST (creación entidad)
+### POST (creación de entidad)
 	http://localhost:8080/contacts
 
 Ejemplo:
@@ -776,7 +776,7 @@ Ejemplo:
 
 ## 12. User
 
-### DELETE (eliminar entidad)
+### DELETE (eliminación de entidad)
 
 	http://localhost:8080/users/{id}
 
@@ -784,7 +784,7 @@ Ejemplo:
 
     http://localhost:8080/users/1
 
-### GET (buscar una entidad)
+### GET (consulta de una entidad por id)
 
 	http://localhost:8080/users/{id}
 

@@ -1,10 +1,14 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.auth.config.SwaggerConfig;
 import com.alkemy.ong.models.request.CategoryRequest;
 import com.alkemy.ong.models.request.NewsRequest;
 import com.alkemy.ong.models.response.*;
 import com.alkemy.ong.service.CategoryService;
 import com.alkemy.ong.service.NewsService;
+import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +23,7 @@ import java.util.List;
 @RequestMapping("/news")
 @CrossOrigin("*")
 @RequiredArgsConstructor
+@Api(tags = {SwaggerConfig.NEWS_CONTROLLER})
 public class NewsController {
 
     private static final String NEWS_PATH = "/news";
@@ -27,16 +32,36 @@ public class NewsController {
     private NewsService newsService;
 
     @GetMapping
-    public ResponseEntity<PageNewsResponse> getAll(
-            @RequestParam(value = "page") int offset,
-            UriComponentsBuilder uriComponentsBuilder){
+    @ApiOperation(value = "Get All News", notes = "Returns all news")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Returns all news")
+    })
+    public ResponseEntity<PageNewsResponse> getAll(@RequestParam (value = "page")
+                                                       @ApiParam(
+                                                        name =  "Page #",
+                                                        type = "Integer",
+                                                        value = "Page requested from the list of news (starting in 1)",
+                                                        example = "1",
+                                                        required = true) int offset,
+                                                   UriComponentsBuilder uriComponentsBuilder){
 
         PageNewsResponse response = newsService.getAll(offset, uriComponentsBuilder.path(NEWS_PATH));
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NewsDetailsResponse> read(@PathVariable Long id){
+    @ApiOperation(value = "Get News By ID", notes = "Returns all details of news by ID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Return the requested news"),
+            @ApiResponse(code = 404, message = "No news with requested ID is found"),
+    })
+    public ResponseEntity<NewsDetailsResponse> read(@PathVariable
+                                                        @ApiParam(
+                                                        name =  "ID",
+                                                        type = "Long",
+                                                        value = "ID of the news requested",
+                                                        example = "1",
+                                                        required = true) Long id){
         if(newsService.itExists(id)){
             return ResponseEntity.status(HttpStatus.OK).body(newsService.getById(id));
         } else {
@@ -45,13 +70,40 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity<NewsDetailsResponse> create(@Valid @RequestBody NewsRequest newsRequest){
+    @ApiOperation(value = "Create News", notes = "Allows user to insert news")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "News created!")
+    })
+    public ResponseEntity<NewsDetailsResponse> create(@Valid @RequestBody
+                                                          @ApiParam(
+                                                          name =  "New News",
+                                                          type = "NewsRequest",
+                                                          value = "News to save",
+                                                          required = true)
+                                                          NewsRequest newsRequest){
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newsService.create(newsRequest));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NewsDetailsResponse> update (@PathVariable Long id, @Valid @RequestBody NewsRequest newsRequest){
+    @ApiOperation(value = "Update News By ID", notes = "Allows user to update an existing news by ID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "News updated!"),
+            @ApiResponse(code = 404, message = "No news with requested ID is found"),
+    })
+    public ResponseEntity<NewsDetailsResponse> update (@PathVariable
+                                                           @ApiParam(
+                                                            name =  "ID",
+                                                            type = "Long",
+                                                            value = "ID of the news requested",
+                                                            example = "1",
+                                                            required = true) Long id,
+                                                       @Valid @RequestBody
+                                                           @ApiParam(
+                                                           name =  "New News",
+                                                           type = "NewsRequest",
+                                                           value = "News to save",
+                                                           required = true) NewsRequest newsRequest){
         if(newsService.itExists(id)){
             return ResponseEntity.status(HttpStatus.OK).body(newsService.updateById(id, newsRequest));
         } else {
@@ -60,7 +112,17 @@ public class NewsController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    @ApiOperation(value = "Soft Delete News By ID", notes = "Allows user to delete news by ID")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "News soft deleted!"),
+            @ApiResponse(code = 404, message = "No news with requested ID is found"),
+    })
+    public ResponseEntity<Void> delete(@PathVariable @ApiParam(
+                                                    name =  "ID",
+                                                    type = "Long",
+                                                    value = "ID of the news requested",
+                                                    example = "1",
+                                                    required = true)Long id){
         if(newsService.itExists(id)){
             newsService.deleteById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

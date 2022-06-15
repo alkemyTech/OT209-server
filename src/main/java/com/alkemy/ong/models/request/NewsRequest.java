@@ -36,6 +36,4 @@ public class NewsRequest {
     @NotNull(message = "Image can't be null")
     @NotEmpty(message = "Image can't be empty")
     private Long categoryId;
-
-    private Timestamp timestamp;
 }
