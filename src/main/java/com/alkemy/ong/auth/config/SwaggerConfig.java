@@ -21,6 +21,7 @@ public class SwaggerConfig {
 
 
     public static final String NEWS_CONTROLLER = "News!";
+    public static final String MEMBER_CONTROLLER = "News!";
 
     @Bean
     public Docket api() {
