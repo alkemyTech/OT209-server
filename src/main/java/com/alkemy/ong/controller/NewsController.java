@@ -2,9 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.models.request.CategoryRequest;
 import com.alkemy.ong.models.request.NewsRequest;
-import com.alkemy.ong.models.response.CategoryBasicResponse;
-import com.alkemy.ong.models.response.CategoryResponse;
-import com.alkemy.ong.models.response.NewsDetailsResponse;
+import com.alkemy.ong.models.response.*;
 import com.alkemy.ong.service.CategoryService;
 import com.alkemy.ong.service.NewsService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,8 +21,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NewsController {
 
+    private static final String NEWS_PATH = "/news";
+
     @Autowired
     private NewsService newsService;
+
+    @GetMapping
+    public ResponseEntity<PageNewsResponse> getAll(
+            @RequestParam(value = "page") int offset,
+            UriComponentsBuilder uriComponentsBuilder){
+
+        PageNewsResponse response = newsService.getAll(offset, uriComponentsBuilder.path(NEWS_PATH));
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<NewsDetailsResponse> read(@PathVariable Long id){
