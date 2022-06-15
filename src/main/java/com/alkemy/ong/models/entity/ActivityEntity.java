@@ -15,7 +15,8 @@ import java.sql.Timestamp;
 @Data
 @Entity @Table(name = "activities")
 @Builder
-public class ActivityEntity {
+public class
+ActivityEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -2,20 +2,20 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
-import com.alkemy.ong.models.entity.CategoryEntity;
 import com.alkemy.ong.models.entity.MemberEntity;
 import com.alkemy.ong.models.mapper.MemberMapper;
-import com.alkemy.ong.models.request.CategoryRequest;
 import com.alkemy.ong.models.request.MemberRequest;
-import com.alkemy.ong.models.response.CategoryResponse;
-import com.alkemy.ong.models.response.MemberBasicResponse;
-import com.alkemy.ong.models.response.MemberResponse;
+import com.alkemy.ong.models.response.*;
 import com.alkemy.ong.repository.MemberRepository;
 import com.alkemy.ong.service.MemberService;
+import com.alkemy.ong.utility.PaginationHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +27,16 @@ public class MemberServiceImp implements MemberService {
     private MemberRepository memberRepository;
     @Autowired
     private MemberMapper memberMapper;
+
+    @Override
+    public PageMemberResponse getMember(int offset, UriComponentsBuilder uriComponentsBuilder) {
+        Page<MemberEntity> dataPage = memberRepository.findAll(PageRequest.of((offset -1), 10));
+        List<MemberBasicResponse> dtos = memberMapper.memberEntityList2DTOList(dataPage.getContent());
+
+        PaginationHelper uriUtil = new PaginationHelper(uriComponentsBuilder, dataPage.getTotalPages(), offset);
+
+        return new PageMemberResponse(dtos, uriUtil.getUriPrev(), uriUtil.getUriNext());
+    }
 
     @Override
     @Transactional

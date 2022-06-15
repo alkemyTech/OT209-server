@@ -2,9 +2,8 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.models.request.CategoryRequest;
 import com.alkemy.ong.models.request.MemberRequest;
-import com.alkemy.ong.models.response.CategoryResponse;
-import com.alkemy.ong.models.response.MemberBasicResponse;
-import com.alkemy.ong.models.response.MemberResponse;
+import com.alkemy.ong.models.response.*;
+
 import javax.validation.Valid;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.service.MemberService;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -21,9 +21,20 @@ import java.util.List;
 @CrossOrigin("*")
 @RequiredArgsConstructor
 public class MemberController {
+
+    private static final String MEMBERS_PATH = "/members";
     @Autowired
     private final MemberService memberService;
 
+    @GetMapping
+    public ResponseEntity<PageMemberResponse> getAll(
+            @RequestParam(value = "page") int offset,
+            UriComponentsBuilder uriComponentsBuilder
+    ){
+
+        PageMemberResponse response = memberService.getMember(offset, uriComponentsBuilder.path(MEMBERS_PATH));
+        return ResponseEntity.ok(response);
+    }
     @PostMapping("/create")
     public ResponseEntity<MemberResponse> create(@Valid @RequestBody MemberRequest memberRequest) {
 
