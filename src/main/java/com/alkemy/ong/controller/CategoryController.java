@@ -51,7 +51,7 @@ public class CategoryController {
 			@ApiParam(
 					name =  "Page #",
                     type = "Integer",
-                    value = "Page requested from the list of news (starting in 1)",
+                    value = "Page requested from the list of categories (starting in 1)",
                     example = "1",
                     required = true
 					)
