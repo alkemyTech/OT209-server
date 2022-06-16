@@ -19,6 +19,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class SwaggerConfig {
 
+    public static final String TESTIMONIAL_CONTROLLER= "Testimonial";
+
 
     @Bean
     public Docket api() {
@@ -29,8 +31,9 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build()
 
+                .tags(new Tag(TESTIMONIAL_CONTROLLER, "Services for creating, updating and deleting testimonials"));
     }
   
     
