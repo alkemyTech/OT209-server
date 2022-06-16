@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class SwaggerConfig {
 
+	public static final String CATEGORY_CONTROLLER = "News!";
 
     @Bean
     public Docket api() {
@@ -29,7 +30,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .tags(new Tag(CATEGORY_CONTROLLER, "Services for creating, reading, updating and deleting categories"));
 
     }
   
