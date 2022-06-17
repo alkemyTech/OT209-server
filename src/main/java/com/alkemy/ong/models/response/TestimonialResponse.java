@@ -41,5 +41,6 @@ public class TestimonialResponse {
 			example = "2022/11/11")
         private LocalDate date;
 
+	//separa las horas del dìa
 	private LocalTime hour;
 }
