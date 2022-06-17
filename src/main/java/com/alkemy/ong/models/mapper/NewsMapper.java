@@ -27,7 +27,7 @@ public class NewsMapper {
             basicDto.setId(entity.getId());
             basicDto.setImage(entity.getImage());
             basicDto.setContent(entity.getContent());
-            basicDto.setCategory(categoryMapper.categoryEntity2DTO(entity.getCategory()));
+            basicDto.setCategory(categoryMapper.categoryEntity2DTO(entity.getCategory()).getName());
             dtos.add(basicDto);
 
         }

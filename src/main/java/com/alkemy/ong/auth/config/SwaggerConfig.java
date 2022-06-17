@@ -21,6 +21,9 @@ public class SwaggerConfig {
 
 	public static final String CATEGORY_CONTROLLER = "Categories!";
 
+    public static final String NEWS_CONTROLLER = "News!";
+    public static final String MEMBER_CONTROLLER = "News!";
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -31,7 +34,8 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .tags(new Tag(CATEGORY_CONTROLLER, "Services for creating, reading, updating and deleting categories"));
+                .tags(new Tag(CATEGORY_CONTROLLER, "Services for creating, reading, updating and deleting categories"))
+                .tags(new Tag(NEWS_CONTROLLER, "Services for creating, reading, updating and deleting news"));
 
     }
   
