@@ -22,6 +22,9 @@ public class SwaggerConfig {
     public static final String TESTIMONIAL_CONTROLLER= "Testimonial";
 
 
+    public static final String NEWS_CONTROLLER = "News!";
+    public static final String MEMBER_CONTROLLER = "News!";
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -32,6 +35,10 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
+<<<<<<< HEAD
+=======
+                .tags(new Tag(NEWS_CONTROLLER, "Services for creating, reading, updating and deleting news"));
+>>>>>>> 5dae6115818e29d17adb9a18d14016ad4f6bb5e4
 
                 .tags(new Tag(TESTIMONIAL_CONTROLLER, "Services for creating, updating and deleting testimonials"));
     }
