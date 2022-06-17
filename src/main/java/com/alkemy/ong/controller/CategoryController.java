@@ -49,9 +49,8 @@ public class CategoryController {
 	public ResponseEntity<PageCategoryResponse> getAll(
 			@RequestParam(value = "page") 
 			@ApiParam(
-					name =  "Page #",
                     type = "Integer",
-                    value = "Page requested from the list of categories (starting in 1)",
+                    value = "page requested from the list of categories (starting in 1)",
                     example = "1",
                     required = true
 					)
@@ -72,7 +71,7 @@ public class CategoryController {
 	public ResponseEntity<CategoryResponse> getDetail(
 			@PathVariable
 			@ApiParam(
-                    name =  "ID",
+                    name =  "id",
                     type = "Long",
                     value = "ID of the category requested",
                     example = "1",
@@ -111,7 +110,7 @@ public class CategoryController {
 	public ResponseEntity<CategoryResponse> update (
 			@PathVariable 
 			@ApiParam(
-                    name =  "ID",
+                    name =  "id",
                     type = "Long",
                     value = "ID of the category requested",
                     example = "1",
@@ -138,7 +137,7 @@ public class CategoryController {
 	public ResponseEntity<Void> deleteCategory(
 			@PathVariable 
 			@ApiParam(
-                    name =  "ID",
+                    name =  "id",
                     type = "Long",
                     value = "ID of the category requested",
                     example = "1",
