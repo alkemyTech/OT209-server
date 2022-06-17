@@ -1,5 +1,8 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.auth.config.SwaggerConfig;
+import com.alkemy.ong.auth.utility.AuthenticationErrorEnum;
+import com.alkemy.ong.exception.EmailNotFoundException;
 import com.alkemy.ong.models.request.AuthenticateRequest;
 import com.alkemy.ong.models.request.RegisterRequest;
 import com.alkemy.ong.models.response.AuthenticateResponse;
@@ -8,8 +11,11 @@ import com.alkemy.ong.models.response.UserResponse;
 import com.alkemy.ong.service.AuthService;
 import javax.validation.Valid;
 
-import com.alkemy.ong.service.EmailService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,31 +25,35 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
-@Api(value = "Authentication controller", description = "This API has a Authenticated for users")
-
+@Api(tags = {SwaggerConfig.AUTH_CONTROLLER})
 public class AuthController {
-	@Autowired
-	private EmailService emailService;
 	
 	@Autowired
 	private AuthService authService;
 
+	@ApiOperation(value = "New user creation", notes = "Register a new user", produces = "application/json", consumes = "application/json")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 201, message = "CREATED - User created", response = AuthenticateResponse.class),					
+			@ApiResponse(code = 500, message = "EMAIL ALREADY EXIST - Use another email", response = EmailNotFoundException.class)})
 	@PostMapping("/register")
 	public ResponseEntity<RegisterResponse> signUp(@Valid @RequestBody RegisterRequest registerRequest) throws IOException {
-		emailService.sendTemplateSolosMas(registerRequest.getEmail());
 		return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(registerRequest));
 	}
 
+	@ApiOperation(value = "Login with email and password", notes = "Login on the API", produces = "application/json", consumes = "application/json")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "OK - User authenticated", response = AuthenticateResponse.class),
+							@ApiResponse(code = 401, message = "UNAUTHORIZED - Bad credentials", response = AuthenticateResponse.class)})
 	@PostMapping("/login")
 	public ResponseEntity<AuthenticateResponse> signIn(@RequestBody AuthenticateRequest authRequest) throws Exception {
-		return ResponseEntity.ok(authService.login(authRequest.getEmail(), authRequest.getPassword()));
+		AuthenticateResponse check = authService.login(authRequest.getEmail(), authRequest.getPassword());
+		return check.getEmail() != AuthenticationErrorEnum.OK.name() ? ResponseEntity.ok(check) : ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(check);
 
 	}
-
+	@ApiOperation(value = "Retrieve user data", notes = "Retrieve user data with the token previously generated", produces = "application/json", consumes = "application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK - User authenticated", response = UserResponse.class),
+							@ApiResponse(code = 403, message = "UNAUTHORIZED - Bad credentials")})
 	@GetMapping("/me")
 	public ResponseEntity<UserResponse> getUser(@RequestHeader(name = "Authorization") String token) {
-		System.out.println(token);
-
 		return ResponseEntity.status(HttpStatus.OK).body(authService.userAuth(token));
 	}
 

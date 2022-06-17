@@ -22,7 +22,8 @@ public class SwaggerConfig {
 
     public static final String NEWS_CONTROLLER = "News!";
     public static final String MEMBER_CONTROLLER = "News!";
-
+    public static final String USER_CONTROLLER = "Users | -";
+    public static final String AUTH_CONTROLLER = "Authentication |- ";
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -33,7 +34,9 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .tags(new Tag(NEWS_CONTROLLER, "Services for creating, reading, updating and deleting news"));
+                .tags(new Tag(NEWS_CONTROLLER, "Services for creating, reading, updating and deleting news"))
+                .tags(new Tag(AUTH_CONTROLLER, "Service for creating, authenticate and retrieve users"))
+                .tags(new Tag(USER_CONTROLLER, "Service for update. delete and retrieve all users data"));
 
     }
   
