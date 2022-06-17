@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class SwaggerConfig {
 
-	public static final String CATEGORY_CONTROLLER = "News!";
+	public static final String CATEGORY_CONTROLLER = "Categories!";
 
     @Bean
     public Docket api() {
