@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "08795acb-9b38-4eb3-a305-329da0ffc90f",
+		"name": "comments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTQ4MDYyNTQsImV4cCI6MTY1NDg2NjczNH0.BBQhRVk-sPYSetypwYIc_xaW-fFC9Cnq8RaYcBZDaza9qN7dhTkGXGa851wuLIzdfc5j_j8z5DdShQ83bFoVpA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"body\": \"holafdasfawefwefqwefqwefewfqewfqew eqwf fqwe fqew eqwf \",\r\n    \"userId\": 1,\r\n    \"newsId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/comments/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTQ4MjIzMjIsImV4cCI6MTY1NDg4MjgwMn0.86fdom4vdTRsnyUQB6leOqUgCaXXuOly0WhQVgWufIXei1UjICA8KH9iATzR1GVwtQhx6Gze-hpSf-Tq3Y3BCg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"body\": \"peeeeeeeeeeeedddd eqwf fqwe fqew eqwf \",\r\n    \"userId\": 1,\r\n    \"newsId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/comments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTQ4MDYyNTQsImV4cCI6MTY1NDg2NjczNH0.BBQhRVk-sPYSetypwYIc_xaW-fFC9Cnq8RaYcBZDaza9qN7dhTkGXGa851wuLIzdfc5j_j8z5DdShQ83bFoVpA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/comments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZHJpYW40QGFkcmlhbi5jb20iLCJpYXQiOjE2NTQ4MDQ2NzQsImV4cCI6MTY1NDg2NTE1NH0.cPDwm8cEAVtCZQZq1rOa817Zw9slkuSlog9ZyK3AHiXWKYDuCWN82WlQDnTvJvJ-zXi7oXA4niI_tGomF9gcXg",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

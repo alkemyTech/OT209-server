@@ -19,8 +19,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class SwaggerConfig {
 
-	public static final String CATEGORY_CONTROLLER = "Category!";
 
+    public static final String TESTIMONIAL_CONTROLLER= "Testimonial";
+	  public static final String CATEGORY_CONTROLLER = "Category!";
     public static final String NEWS_CONTROLLER = "News!";
     public static final String USER_CONTROLLER = "Users | -";
     public static final String AUTH_CONTROLLER = "Authentication |- ";
@@ -38,11 +39,12 @@ public class SwaggerConfig {
                 .build()
 
 
+
+                .tags(new Tag(TESTIMONIAL_CONTROLLER, "Services for creating, updating and deleting testimonials"));
                 .tags(new Tag(AUTH_CONTROLLER, "Service for creating, authenticate and retrieve users"))
                 .tags(new Tag(USER_CONTROLLER, "Service for update. delete and retrieve all users data"));
                 .tags(new Tag(CATEGORY_CONTROLLER, "Services for creating, reading, updating and deleting categories"))
                 .tags(new Tag(NEWS_CONTROLLER, "Services for creating, reading, updating and deleting news"));
-
 
     }
   
