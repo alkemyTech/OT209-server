@@ -6,6 +6,7 @@ import com.alkemy.ong.models.request.NewsRequest;
 import com.alkemy.ong.models.response.CategoryBasicResponse;
 import com.alkemy.ong.models.response.NewsBasicResponse;
 import com.alkemy.ong.models.response.NewsDetailsResponse;
+import com.alkemy.ong.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,9 @@ public class NewsMapper {
 
     @Autowired
     CategoryMapper categoryMapper;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     public List<NewsBasicResponse> newsEntityList2NewsBasicResponseList(List<NewsEntity> entities){
         List<NewsBasicResponse> dtos = new ArrayList<>();
@@ -36,15 +40,20 @@ public class NewsMapper {
     }
 
     public NewsEntity newsRequest2NewsEntity (NewsRequest request){
+
         NewsEntity entity = new NewsEntity();
         entity.setName(request.getName());
         entity.setImage(request.getImage());
         entity.setContent(request.getContent());
         entity.setCategoryId(request.getCategoryId());
+        entity.setCategory(categoryRepository.getById(entity.getCategoryId()));
         return entity;
     }
 
     public NewsDetailsResponse newsEntity2NewsResponse (NewsEntity entity){
+
+        System.out.println(entity.getCategory());
+
         return NewsDetailsResponse.builder()
                 .name(entity.getName())
                 .image(entity.getImage())
