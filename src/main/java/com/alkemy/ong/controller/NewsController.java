@@ -38,7 +38,6 @@ public class NewsController {
     })
     public ResponseEntity<PageNewsResponse> getAll(@RequestParam (value = "page")
                                                        @ApiParam(
-                                                        name =  "Page #",
                                                         type = "Integer",
                                                         value = "Page requested from the list of news (starting in 1)",
                                                         example = "1",
@@ -57,7 +56,7 @@ public class NewsController {
     })
     public ResponseEntity<NewsDetailsResponse> read(@PathVariable
                                                         @ApiParam(
-                                                        name =  "ID",
+                                                        name =  "id",
                                                         type = "Long",
                                                         value = "ID of the news requested",
                                                         example = "1",
@@ -92,7 +91,7 @@ public class NewsController {
     })
     public ResponseEntity<NewsDetailsResponse> update (@PathVariable
                                                            @ApiParam(
-                                                            name =  "ID",
+                                                            name =  "id",
                                                             type = "Long",
                                                             value = "ID of the news requested",
                                                             example = "1",
@@ -116,7 +115,7 @@ public class NewsController {
             @ApiResponse(code = 404, message = "No news with requested ID is found"),
     })
     public ResponseEntity<Void> delete(@PathVariable @ApiParam(
-                                                    name =  "ID",
+                                                    name =  "id",
                                                     type = "Long",
                                                     value = "ID of the news requested",
                                                     example = "1",
