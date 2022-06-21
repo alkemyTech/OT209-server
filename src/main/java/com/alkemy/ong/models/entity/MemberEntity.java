@@ -1,10 +1,9 @@
 package com.alkemy.ong.models.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -16,6 +15,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "members")
+@ApiModel("Model Member")
 public class MemberEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,19 +25,18 @@ public class MemberEntity {
     @NotBlank
     @NotNull(message = "The name can't be null")
     @NotEmpty(message = "The name can't be empty")
-    @Column(nullable = false)
+    @ApiModelProperty("Member name")
     private String name;
 
     @NotBlank
     @NotNull(message = "The image can't be null")
     @NotEmpty(message = "The image can't be empty")
-    @Column(nullable = false)
+    @ApiModelProperty("imagen member")
     private String image;
-
-    @Column(nullable = false)
+    @ApiModelProperty("Description the member")
     private String description;
 
-    @Column @CreationTimestamp
+   @CreationTimestamp
     private Timestamp timestamp;
 
     @Column(name = "soft_delete")

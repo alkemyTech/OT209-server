@@ -1,9 +1,9 @@
 package com.alkemy.ong.models.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import lombok.Builder;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -23,23 +23,23 @@ public class ActivityEntity {
     @NotBlank
     @NotNull(message = "The name can't be null")
     @NotEmpty(message = "The name can't be empty")
-    @Column(nullable = false)
+    @ApiModelProperty("Activity name")
     private String name;
 
 
     @NotBlank
     @NotNull(message = "The content can't be null")
     @NotEmpty(message = "The content can't be empty")
-    @Column(nullable = false)
+    @ApiModelProperty("activity content")
     private String content;
 
     @NotBlank
     @NotNull(message = "The image can't be null")
     @NotEmpty(message = "The image can't be empty")
-    @Column(nullable = false)
+    @ApiModelProperty("activity image")
     private String image;
 
-    @Column @CreationTimestamp
+    @CreationTimestamp
     private Timestamp timestamp;
 
     @Column(name = "soft_delete")

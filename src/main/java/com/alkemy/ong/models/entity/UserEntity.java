@@ -1,5 +1,7 @@
 package com.alkemy.ong.models.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +33,7 @@ import org.hibernate.annotations.SQLDelete;
         condition = "deleted = :isDeleted"
 )
 @Builder
-
+@ApiModel ("Model User")
 public class UserEntity {
 
     @Id
@@ -43,17 +45,20 @@ public class UserEntity {
     @NotEmpty(message = "the name can't be null")
     @NotBlank(message = "the name can't  be blank")
     @Column(name = "first_name", nullable = false, updatable = false)
+    @ApiModelProperty(value = "the first name user", required = true)
     private String firstName;
 
     @NonNull
     @NotEmpty(message = "the lastName can't be null")
     @NotBlank(message = "the lastName can't  be blank")
     @Column(name = "last_name", nullable = false, updatable = false)
+    @ApiModelProperty(value = "the last name user", required = true)
     private String lastName;
 
     @NonNull
     @Email(message = "enter a correct email")
     @Column(nullable = false, updatable = false, unique = true)
+    @ApiModelProperty(value = "the email user", required = true)
     private String email;
 
     @NonNull

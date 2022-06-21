@@ -1,7 +1,8 @@
 package com.alkemy.ong.models.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE category_id=?")
 @Where(clause = "soft_delete = false")
+@ApiModel("Model Category")
 public class CategoryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,19 +40,14 @@ public class CategoryEntity {
 	@NotBlank
 	@NotNull(message = "the name can't be null")
 	@NotEmpty(message = "the name can't be empty")
-	@Column(nullable = false)
+	@ApiModelProperty("Name category")
 	private String name;
-	
-	@Column
+        @ApiModelProperty("Description category")
 	private String description;
-	
-	@Column
-	private String image;
-	
+        @ApiModelProperty("Image category")
+	private String image;	
 	@CreationTimestamp
-	@Column
-	private Timestamp timestamp;
-	
+	private Timestamp timestamp;	
 	@Column(name = "soft_delete")
 	private Boolean softDelete = Boolean.FALSE;
 	 
