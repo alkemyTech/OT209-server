@@ -7,10 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemberBasicResponse {
-  @ApiModelProperty(name = "Name",
-          value = "Title of the member",
-          dataType = "String",
-          example = "Imsercion de miembro para Somos Más")
-  String name;
+
+    @ApiModelProperty(name = "Name",
+            value = "Title of the member",
+            dataType = "String",
+            example = "Imsercion de miembro para Somos Más")
+    String name;
 
 }

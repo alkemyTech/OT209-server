@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-
     @Transactional
     @Override
     public void delete(Long id) throws UsernameNotFoundException {
@@ -46,8 +45,6 @@ public class UserServiceImpl implements UserService {
     public List<UserResponse> getUsers() {
         List<UserEntity> usersEntities = userRepository.findAll();
 
-
-
         return userMapper.userEntityDtoList(usersEntities);
     }
 
@@ -58,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND,
+        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                 "the searched user does not exist"));
     }
 }

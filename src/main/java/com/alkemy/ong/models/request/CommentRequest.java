@@ -1,11 +1,7 @@
 package com.alkemy.ong.models.request;
 
-import com.alkemy.ong.models.entity.NewsEntity;
-import com.alkemy.ong.models.entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/ong")
 @CrossOrigin("*")
@@ -24,29 +24,25 @@ public class ActivityController {
 
         boolean responseContent = (activityRequest.getContent()).matches("(^[[a-zA-Z]+(\\-|\\ )?]+)$");
         boolean responseName = (activityRequest.getName()).matches("(^[[a-zA-Z]+(\\-|\\ )?]+)$");
-        String response="";
+        String response = "";
         try {
-            if(responseContent && responseName) {
+            if (responseContent && responseName) {
                 activityService.saveActivity(activityRequest);
-                response="insertion Succesfull";
-            }else {
+                response = "insertion Succesfull";
+            } else {
                 throw new IllegalArgumentException("Ilegal arguments");
             }
         } catch (IllegalArgumentException e) {
-            response= e.getMessage();
+            response = e.getMessage();
         }
         return response;
     }
 
     @PutMapping("/activities/{id}")
-    public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @Valid @RequestBody ActivityRequest activityRequest){
+    public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @Valid @RequestBody ActivityRequest activityRequest) {
 
-        return activityService.itExists(id) ?
-                ResponseEntity.status(HttpStatus.OK).body(activityService.updateActivity(id, activityRequest))
+        return activityService.itExists(id)
+                ? ResponseEntity.status(HttpStatus.OK).body(activityService.updateActivity(id, activityRequest))
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-
-
-
     }
-
 }

@@ -62,8 +62,8 @@ public class UserEntity {
     private String email;
 
     @NonNull
-    @Column(nullable = false)
     @NotEmpty(message = "the password can't be null")
+    @ApiModelProperty(value = "the password user >=8 character ", required = true)
     private String password;
 
     private String photo;

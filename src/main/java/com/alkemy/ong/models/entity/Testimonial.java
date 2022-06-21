@@ -40,8 +40,7 @@ public class Testimonial {
 
     @NotBlank
     @NotNull(message = "the name can't be null")
-    @NotEmpty(message = "the name can't be empty")
-    @Column(nullable = false)
+    @NotEmpty(message = "the name can't be empty")   
     @ApiModelProperty(value = "The title of testimonials", required = true)
     private String name;
     @ApiModelProperty(value = "The image of testimonials", required = true)

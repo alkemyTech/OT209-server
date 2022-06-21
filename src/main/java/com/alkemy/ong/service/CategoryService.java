@@ -1,7 +1,6 @@
 package com.alkemy.ong.service;
 
 import org.springframework.web.util.UriComponentsBuilder;
-
 import com.alkemy.ong.models.request.CategoryRequest;
 import com.alkemy.ong.models.response.CategoryResponse;
 import com.alkemy.ong.models.response.PageCategoryResponse;

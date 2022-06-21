@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,6 +56,7 @@ public class AmazonClient {
         s3client.putObject(new PutObjectRequest(bucketName, fileName, file)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
     }
+
     public String uploadFile(MultipartFile multipartFile) {
 
         String fileUrl = "";

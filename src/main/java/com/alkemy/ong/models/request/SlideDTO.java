@@ -1,6 +1,5 @@
 package com.alkemy.ong.models.request;
 
-import com.alkemy.ong.models.entity.Organization;
 import lombok.Getter;
 import lombok.Setter;
 

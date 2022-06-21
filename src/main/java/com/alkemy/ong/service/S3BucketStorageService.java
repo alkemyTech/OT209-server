@@ -4,5 +4,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface S3BucketStorageService {
 
-	public String uploadFile(String keyName,MultipartFile multipartFile);
+    public String uploadFile(String keyName, MultipartFile multipartFile);
 }

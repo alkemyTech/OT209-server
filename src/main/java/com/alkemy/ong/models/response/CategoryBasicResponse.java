@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 @ApiModel(value = "Category Response (Basic)", description = "Response with some properties of the requested category")
 public class CategoryBasicResponse {
-	@ApiModelProperty(name = "Name",
+
+    @ApiModelProperty(name = "Name",
             value = "Title of the category",
             dataType = "String",
             example = "Relevante")
-	String name;
+    String name;
 }

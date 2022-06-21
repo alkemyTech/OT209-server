@@ -11,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
-
 import com.alkemy.ong.auth.security.JwtTokenProvider;
 import com.alkemy.ong.auth.utility.AuthenticationErrorEnum;
 import com.alkemy.ong.auth.utility.RoleEnum;
@@ -26,86 +25,81 @@ import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.AuthService;
 import com.alkemy.ong.service.EmailService;
-
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired 
-	private EmailService emailService;
-	
-	@Autowired
-	private UserMapper userMapper;
+    @Autowired
+    private EmailService emailService;
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private UserMapper userMapper;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Autowired
-	private JwtTokenProvider jwtTokenProvider;
-	
-	
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-	@Override
-	public RegisterResponse register(RegisterRequest userRegister) {
-		if (userRepository.existsByEmail(userRegister.getEmail())) { // @Adrián Fernández: Change findbyEmail to exists
-			throw new EmailAlreadyExistException(userRegister.getEmail());
-		}
-		Set<RoleEntity> roleEntity = roleRepository.findByName(RoleEnum.ADMIN.getFullRoleName());
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
-		if (roleEntity.isEmpty()) {
-			throw new NullPointerException();
-		}
+    @Override
+    public RegisterResponse register(RegisterRequest userRegister) {
+        if (userRepository.existsByEmail(userRegister.getEmail())) { // @Adrián Fernández: Change findbyEmail to exists
+            throw new EmailAlreadyExistException(userRegister.getEmail());
+        }
+        Set<RoleEntity> roleEntity = roleRepository.findByName(RoleEnum.ADMIN.getFullRoleName());
 
-		UserEntity userEntity = userMapper.toEntity(userRegister, roleEntity);
-		userEntity = userRepository.save(userEntity);
-		RegisterResponse registerResponse = userMapper.toUserRegisterResponde(userEntity,
-				jwtTokenProvider.generateToken(authenticationManager.authenticate(
-						new UsernamePasswordAuthenticationToken(userRegister.getEmail(), userRegister.getPassword()))));
-		try {
-			this.emailService.sendTemplateSolosMas(registerResponse.getEmail());
-		} catch (IOException e) {
-			System.out.println("ERROR WHILE SENDING EMAIL TEMPLATE. CHECK EMAIL IMPLEMENTATION");
-		}
-		return registerResponse;
-	}
+        if (roleEntity.isEmpty()) {
+            throw new NullPointerException();
+        }
 
-	@Override
-	public AuthenticateResponse login(String email, String password) throws Exception {
-		try {
-			Authentication authentication = authenticationManager
-					.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        UserEntity userEntity = userMapper.toEntity(userRegister, roleEntity);
+        userEntity = userRepository.save(userEntity);
+        RegisterResponse registerResponse = userMapper.toUserRegisterResponde(userEntity,
+                jwtTokenProvider.generateToken(authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(userRegister.getEmail(), userRegister.getPassword()))));
+        try {
+            this.emailService.sendTemplateSolosMas(registerResponse.getEmail());
+        } catch (IOException e) {
+            System.out.println("ERROR WHILE SENDING EMAIL TEMPLATE. CHECK EMAIL IMPLEMENTATION");
+        }
+        return registerResponse;
+    }
 
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			return new AuthenticateResponse(email, jwtTokenProvider.generateToken(authentication));
-		} catch (Exception e) {
-			return new AuthenticateResponse(AuthenticationErrorEnum.OK.name(), AuthenticationErrorEnum.FALSE.name());
-		}
-	}
+    @Override
+    public AuthenticateResponse login(String email, String password) throws Exception {
+        try {
+            Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
-	@Override
-	@Transactional(readOnly = true)
-	public UserResponse userAuth(String token) {
-		token = token.replace("Bearer ", "");
-		String email = jwtTokenProvider.getJWTUsername(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return new AuthenticateResponse(email, jwtTokenProvider.generateToken(authentication));
+        } catch (Exception e) {
+            return new AuthenticateResponse(AuthenticationErrorEnum.OK.name(), AuthenticationErrorEnum.FALSE.name());
+        }
+    }
 
-		UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "the searched user does not exist"));
-		return userMapper.convertTo(userEntity);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public UserResponse userAuth(String token) {
+        token = token.replace("Bearer ", "");
+        String email = jwtTokenProvider.getJWTUsername(token);
 
-	public String getRol(String token){
+        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "the searched user does not exist"));
+        return userMapper.convertTo(userEntity);
+    }
 
+    public String getRol(String token) {
 
-
-		return null;
-	}
+        return null;
+    }
 
 }

@@ -15,27 +15,27 @@ import lombok.Setter;
 @Builder
 @ApiModel(value = "Category Response", description = "Response with the requested category")
 public class CategoryResponse {
-	
-	@ApiModelProperty(name = "Name",
+
+    @ApiModelProperty(name = "Name",
             value = "Title of the category",
             dataType = "String",
             example = "Relevante")
-	private String name;
-	
-	@ApiModelProperty(name = "Description",
-		    value = "Description of the category",
-		    dataType = "String",
-		    example = "Lorem Ipsum..."
-		    )
-	private String description;
-	
-	@ApiModelProperty(name = "Image",
-		    value = "Image of the category",
-		    dataType = "String",
-		    example = "image0001.jpg"
-		    )
-	private String image;
-	
-	@CreationTimestamp
-	private Timestamp timestamp;
+    private String name;
+
+    @ApiModelProperty(name = "Description",
+            value = "Description of the category",
+            dataType = "String",
+            example = "Lorem Ipsum..."
+    )
+    private String description;
+
+    @ApiModelProperty(name = "Image",
+            value = "Image of the category",
+            dataType = "String",
+            example = "image0001.jpg"
+    )
+    private String image;
+
+    @CreationTimestamp
+    private Timestamp timestamp;
 }

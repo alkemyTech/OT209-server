@@ -1,7 +1,6 @@
 
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.models.entity.Slide;
 import com.alkemy.ong.exception.OrgNotFoundException;
 import com.alkemy.ong.models.entity.Organization;
 import com.alkemy.ong.models.mapper.OrganizationMapper;
@@ -14,7 +13,6 @@ import com.alkemy.ong.service.OrganizationService;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,8 +63,5 @@ public class OrganizationServiceImpl implements OrganizationService {
 	public String create(DateOrganizationRequest request) {
 		this.organizationRepository.save(this.ongMapper.orgRequestToEntity(request));
 		return "Entity created";
-	}
-    
-    
-
+	}  
 }
