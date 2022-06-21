@@ -15,17 +15,17 @@ import java.util.List;
 public class PageNewsResponse {
 
     @ApiModelProperty(name = "Page",
-                        value = "Page of news")
+            value = "Page of news")
     private List<NewsBasicResponse> news;
 
     @ApiModelProperty(name = "Previous Page",
-                        value = "Previous Page",
-                        example = "path/news?page={prev-page}")
+            value = "Previous Page",
+            example = "path/news?page={prev-page}")
     private String urlPrevPage;
 
     @ApiModelProperty(name = "Next Page",
-                        value = "Next Page",
-                        example = "path/news?page={next-page}")
+            value = "Next Page",
+            example = "path/news?page={next-page}")
     private String urlNextPage;
 
 }

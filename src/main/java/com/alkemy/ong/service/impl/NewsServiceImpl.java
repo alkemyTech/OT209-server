@@ -1,6 +1,5 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.models.entity.CategoryEntity;
 import com.alkemy.ong.models.entity.NewsEntity;
 import com.alkemy.ong.models.mapper.NewsMapper;
 import com.alkemy.ong.models.request.NewsRequest;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.util.List;
 
 @Service
@@ -27,7 +25,6 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     NewsMapper newsMapper;
 
-
     @Override
     public boolean itExists(Long id) {
         System.out.println(id);
@@ -36,7 +33,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public PageNewsResponse getAll(int offset, UriComponentsBuilder uriComponentsBuilder) {
-        Page<NewsEntity> dataPage = newsRepository.findAll(PageRequest.of((offset -1), 10));
+        Page<NewsEntity> dataPage = newsRepository.findAll(PageRequest.of((offset - 1), 10));
 
         System.out.println(newsRepository.findAll());
 

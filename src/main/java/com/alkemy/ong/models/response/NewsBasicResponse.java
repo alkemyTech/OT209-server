@@ -11,32 +11,32 @@ import lombok.Setter;
 public class NewsBasicResponse {
 
     @ApiModelProperty(name = "ID",
-                        value = "News ID",
-                        dataType = "Long",
-                        example = "1")
+            value = "News ID",
+            dataType = "Long",
+            example = "1")
     private Long id;
 
     @ApiModelProperty(name = "Name",
-                        value = "Title of the news",
-                        dataType = "String",
-                        example = "Éxito en el concierto organizado por Somos Más")
+            value = "Title of the news",
+            dataType = "String",
+            example = "Éxito en el concierto organizado por Somos Más")
     private String name;
 
     @ApiModelProperty(name = "Content",
-                        value = "Content of the news",
-                        dataType = "String",
-                        example = "Lorem Ipsum...")
+            value = "Content of the news",
+            dataType = "String",
+            example = "Lorem Ipsum...")
     private String content;
 
     @ApiModelProperty(name = "Category",
-                        value = "Category at which the news belongs",
-                        dataType = "String",
-                        example = "Events")
+            value = "Category at which the news belongs",
+            dataType = "String",
+            example = "Events")
     private String image;
 
     @ApiModelProperty(name = "Category",
-                        value = "Category at which the news belongs",
-                        dataType = "String",
-                        example = "Events")
+            value = "Category at which the news belongs",
+            dataType = "String",
+            example = "Events")
     private String category;
 }

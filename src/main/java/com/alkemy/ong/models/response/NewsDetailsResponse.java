@@ -1,6 +1,5 @@
 package com.alkemy.ong.models.response;
 
-import com.alkemy.ong.models.entity.CategoryEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -14,38 +13,38 @@ import lombok.Setter;
 public class NewsDetailsResponse {
 
     @ApiModelProperty(name = "ID",
-                        value = "ID of the news",
-                        dataType = "Long",
-                        example = "1")
+            value = "ID of the news",
+            dataType = "Long",
+            example = "1")
     private Long id;
 
     @ApiModelProperty(name = "Name",
-                        value = "Title of the news",
-                        dataType = "String",
-                        example = "Éxito en el concierto organizado por Somos Más")
+            value = "Title of the news",
+            dataType = "String",
+            example = "Éxito en el concierto organizado por Somos Más")
     private String name;
 
     @ApiModelProperty(name = "Content",
-                        value = "Content of the news",
-                        dataType = "String",
-                        example = "Lorem Ipsum...")
+            value = "Content of the news",
+            dataType = "String",
+            example = "Lorem Ipsum...")
     private String content;
 
     @ApiModelProperty(name = "Image",
-                        value = "Emblematic mage associated with the news",
-                        dataType = "String",
-                        example = "image0001.jpg")
+            value = "Emblematic mage associated with the news",
+            dataType = "String",
+            example = "image0001.jpg")
     private String image;
 
     @ApiModelProperty(name = "Category",
-                        value = "Category at which the news belongs",
-                        dataType = "String",
-                        example = "Events")
+            value = "Category at which the news belongs",
+            dataType = "String",
+            example = "Events")
     private CategoryResponse category;
 
     @ApiModelProperty(name = "Category ID",
-                        value = "ID of the category",
-                        dataType = "Long",
-                        example = "1")
+            value = "ID of the category",
+            dataType = "Long",
+            example = "1")
     private Long categoryId;
 }

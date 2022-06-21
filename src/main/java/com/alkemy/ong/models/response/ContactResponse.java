@@ -15,5 +15,4 @@ public class ContactResponse {
     private String message;
     private String phone;
 
-
 }

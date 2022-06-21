@@ -5,12 +5,10 @@ import java.util.Optional;
 
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
-import com.alkemy.ong.exception.UserNotMatch;
 import com.alkemy.ong.models.entity.CommentEntity;
 import com.alkemy.ong.models.entity.UserEntity;
 import com.alkemy.ong.models.request.CommentRequest;
 import com.alkemy.ong.models.response.UserResponse;
-import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,108 +25,93 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class CommentServiceImp implements CommentService {
 
-	@Autowired
-	private CommentRepository commentRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
-	@Autowired
-	private CommentMapper commentMapper;
+    @Autowired
+    private CommentMapper commentMapper;
 
-	@Autowired
-	private NewsService newsServiceimpl;
+    @Autowired
+    private NewsService newsServiceimpl;
 
-	@Autowired
-	private UserServiceImpl userService;
+    @Autowired
+    private UserServiceImpl userService;
 
-	@Autowired
-	private AuthServiceImpl authService;
+    @Autowired
+    private AuthServiceImpl authService;
 
-	@Override
-	public List<CommentResponse> getCommentsByDate() {
-		List<CommentResponse> commentDto = commentMapper.listEntityToDtoList(commentRepository.findAllByOrderByDateDesc());
-		return commentDto;
-	}
+    @Override
+    public List<CommentResponse> getCommentsByDate() {
+        List<CommentResponse> commentDto = commentMapper.listEntityToDtoList(commentRepository.findAllByOrderByDateDesc());
+        return commentDto;
+    }
 
-	@Override
-	@Transactional
-	public CommentResponse create(CommentRequest commentRequest) throws ParamNotFound {
+    @Override
+    @Transactional
+    public CommentResponse create(CommentRequest commentRequest) throws ParamNotFound {
 
+        if (!newsServiceimpl.itExists(commentRequest.getNewsId())) {
+            throw new ParamNotFound("news ID not found");
+        }
+        if (!userService.ExistsUserById(commentRequest.getUserId())) {
+            throw new ParamNotFound("User ID not found");
+        }
 
-		if(!newsServiceimpl.itExists(commentRequest.getNewsId())){
-			throw new ParamNotFound("news ID not found");
-		}
-		if(!userService.ExistsUserById(commentRequest.getUserId())){
-			throw new ParamNotFound("User ID not found");
-		}
+        return commentMapper.commentsEntity2CommentsResponse(commentRepository.save(commentMapper.commentRequest2newsEntity(commentRequest)));
+    }
 
+    @Override
+    public CommentResponse updateById(Long id, CommentRequest request, String authorization) throws AccessDeniedException {
+        CommentEntity entity = commentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "the searched comment does not exist")); 
+        checkComment(entity, request, authorization);
+        return commentMapper.commentsEntity2CommentsResponse(
+                commentRepository.save(commentMapper.updateCommentsEntityWithCommentRequest(entity, request)));
+    }
 
-		return commentMapper.commentsEntity2CommentsResponse(commentRepository.save(commentMapper.commentRequest2newsEntity(commentRequest)));
-	}
+    private void checkComment(CommentEntity entity, CommentRequest commentRequest, String authorization) throws AccessDeniedException {
 
+        UserResponse userResponse = authService.userAuth(authorization);
+        System.out.println(userResponse.getId() + "----------.dw.dw");
+        UserEntity userEntity = userService.findById(userResponse.getId());
 
-	@Override
-	public CommentResponse updateById(Long id, CommentRequest request, String authorization) throws  AccessDeniedException {
-		CommentEntity entity = commentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-				"the searched comment does not exist"));
-		/*
-		 if(request.getUserID() != entity.getUser().getId() ){
-			throw new UserNotMatch("the user who requested the action is not the same as the commenter.");
-		 }
+        if (userEntity.getRol().stream().anyMatch(
+                e -> e.getName().equals("ROLE_ADMIN")
+        )) {
+            return;
+        }
 
-		 */
-			checkComment(entity, request, authorization);
-		return commentMapper.commentsEntity2CommentsResponse(
-				commentRepository.save(commentMapper.updateCommentsEntityWithCommentRequest(entity, request)));
-	}
+        if (!entity.getUser().getId().equals(commentRequest.getUserId())
+                || !entity.getNews().getId().equals(commentRequest.getNewsId())
+                || !(userResponse.getEmail().equals(entity.getUser().getEmail()))) {
 
-	private void checkComment(CommentEntity entity,CommentRequest commentRequest, String authorization) throws AccessDeniedException{
+            throw new AccessDeniedException("you do not have permissions to perform this action.");
+        }
 
-		UserResponse userResponse = authService.userAuth(authorization);
-		System.out.println(userResponse.getId()+"----------.dw.dw");
-		UserEntity userEntity = userService.findById(userResponse.getId());
+    }
 
-		if(userEntity.getRol().stream().anyMatch(
-				e -> e.getName().equals("ROLE_ADMIN")
-		)){
-			return ;
-		}
+    @Override
+    public boolean itExists(Long id) {
+        return commentRepository.existsById(id);
+    }
 
-		if(!entity.getUser().getId().equals(commentRequest.getUserId())
-				|| !entity.getNews().getId().equals(commentRequest.getNewsId())
-		 		|| !(userResponse.getEmail().equals(entity.getUser().getEmail())) ) {
+    @Override
+    public void deleteById(Long id, String token) throws NotFoundException, AccessDeniedException {
 
-			throw new AccessDeniedException("you do not have permissions to perform this action.");
-		}
+        Optional<CommentEntity> commentEntity = commentRepository.findById(id);
+        if (commentEntity.isEmpty()) {
+            throw new NotFoundException("Comment not found");
+        }
+        UserResponse userResponse = authService.userAuth(token);
+        UserEntity userEntity = userService.findById(userResponse.getId());
 
+        if (userResponse.getEmail().equals(commentEntity.get().getUser().getEmail()) || userEntity.getRol().stream().anyMatch(
+                e -> e.getName().equals("ROLE_ADMIN")
+        )) {
+            commentRepository.deleteById(id);
+        } else {
+            throw new AccessDeniedException("you do not have permissions to perform this action.");
+        }
 
-
-	}
-
-	@Override
-	public boolean itExists(Long id) {
-		return commentRepository.existsById(id);
-	}
-
-	@Override
-	public void deleteById(Long id, String token) throws NotFoundException, AccessDeniedException {
-
-		Optional<CommentEntity> commentEntity = commentRepository.findById(id);
-		if (commentEntity.isEmpty()){
-			throw new NotFoundException("Comment not found");
-		}
-		UserResponse userResponse = authService.userAuth(token);
-		UserEntity userEntity = userService.findById(userResponse.getId());
-
-		if( userResponse.getEmail().equals(commentEntity.get().getUser().getEmail()) || userEntity.getRol().stream().anyMatch(
-				e -> e.getName().equals("ROLE_ADMIN")
-		)){
-			commentRepository.deleteById(id);
-		} else {
-			throw new AccessDeniedException("you do not have permissions to perform this action.");
-		}
-
-
-
-	}
-
-
+    }
 }

@@ -19,56 +19,56 @@ import java.io.IOException;
 @Service
 public class S3BucketStorageServiceImp implements S3BucketStorageService {
 
-	private Logger logger = LoggerFactory.getLogger(S3BucketStorageService.class);
+    private Logger logger = LoggerFactory.getLogger(S3BucketStorageService.class);
 
-	@Autowired
-	private AmazonS3 amazonS3Client;
+    @Autowired
+    private AmazonS3 amazonS3Client;
 
-	@Value("${amazonProperties.bucketName}")
-	private String bucketName;
-	
-	@Value("10485760")
-	private String imageMaxSize;
+    @Value("${amazonProperties.bucketName}")
+    private String bucketName;
 
-	/**
-	 * Upload file into AWS S3
-	 *
-	 * @param file name
-	 * @param file to upload on S3 Bucket
-	 * @return String URL for the image uploaded
-	 * 
-	 */
-	public String uploadFile(String keyName, MultipartFile file) {
-		if (verifyFileSize(file)) {
-			throw new MaxUploadSizeExceededException(Integer.parseInt(imageMaxSize));
-		}
-		if (verifyFileExtension(file)) {
-			throw new ArgumentException("File extension must be '.png' .'jpg' '.jpeg'");
-		}
-		try {
-			ObjectMetadata metadata = new ObjectMetadata();
-			metadata.setContentLength(file.getSize());
-			amazonS3Client.putObject(bucketName, keyName, file.getInputStream(), metadata);
-			return amazonS3Client.getUrl(bucketName, file.getName()).toString();
-		} catch (IOException ioe) {
-			logger.error("IOException: " + ioe.getMessage());
-		} catch (AmazonServiceException serviceException) {
-			logger.info("AmazonServiceException: " + serviceException.getMessage());
-			throw serviceException;
-		} catch (AmazonClientException clientException) {
-			logger.info("AmazonClientException Message: " + clientException.getMessage());
-			throw clientException;
-		}
-		return "File not uploaded: " + keyName;
-	}
+    @Value("10485760")
+    private String imageMaxSize;
 
-	private boolean verifyFileSize(MultipartFile file) {
-		return !(file.getContentType().equals("image/jpeg") || 
-				file.getContentType().equals("image/png") || 
-				file.getContentType().equals("image/jpg"));
-	}
+    /**
+     * Upload file into AWS S3
+     *
+     * @param file name
+     * @param file to upload on S3 Bucket
+     * @return String URL for the image uploaded
+     *
+     */
+    public String uploadFile(String keyName, MultipartFile file) {
+        if (verifyFileSize(file)) {
+            throw new MaxUploadSizeExceededException(Integer.parseInt(imageMaxSize));
+        }
+        if (verifyFileExtension(file)) {
+            throw new ArgumentException("File extension must be '.png' .'jpg' '.jpeg'");
+        }
+        try {
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentLength(file.getSize());
+            amazonS3Client.putObject(bucketName, keyName, file.getInputStream(), metadata);
+            return amazonS3Client.getUrl(bucketName, file.getName()).toString();
+        } catch (IOException ioe) {
+            logger.error("IOException: " + ioe.getMessage());
+        } catch (AmazonServiceException serviceException) {
+            logger.info("AmazonServiceException: " + serviceException.getMessage());
+            throw serviceException;
+        } catch (AmazonClientException clientException) {
+            logger.info("AmazonClientException Message: " + clientException.getMessage());
+            throw clientException;
+        }
+        return "File not uploaded: " + keyName;
+    }
 
-	private boolean verifyFileExtension(MultipartFile file) {
-		return file.getSize() > Integer.parseInt(imageMaxSize);
-	}
+    private boolean verifyFileSize(MultipartFile file) {
+        return !(file.getContentType().equals("image/jpeg")
+                || file.getContentType().equals("image/png")
+                || file.getContentType().equals("image/jpg"));
+    }
+
+    private boolean verifyFileExtension(MultipartFile file) {
+        return file.getSize() > Integer.parseInt(imageMaxSize);
+    }
 }

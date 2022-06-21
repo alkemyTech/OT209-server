@@ -7,6 +7,7 @@ import lombok.*;
 @Setter
 @Builder
 public class MemberResponse {
+
     @ApiModelProperty(name = "Juan",
             value = "name of the Member",
             dataType = "String",

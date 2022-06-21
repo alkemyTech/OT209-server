@@ -9,7 +9,6 @@ import com.alkemy.ong.models.response.TestimonialResponse;
 import com.alkemy.ong.repository.TestimonialRepository;
 import com.alkemy.ong.service.TestimonialService;
 import javax.transaction.Transactional;
-
 import com.alkemy.ong.utility.PaginationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -54,7 +52,7 @@ public class TestimonialServiceImpl implements TestimonialService {
 
     @Transactional
     @Override
-    public TestimonialResponse update(Long id, TestimonialRequest request) {        
+    public TestimonialResponse update(Long id, TestimonialRequest request) {
         Testimonial tSaved = testimonialRepository.save(testimonialMapper.updateDto(findById(id), request));
         return testimonialMapper.toDto(tSaved);
     }
@@ -79,7 +77,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     @Override
     public TestimonialResponse getTestimonial(Long id) {
         Optional<Testimonial> entity = testimonialRepository.findById(id);
-        if(!entity.isPresent()) {
+        if (!entity.isPresent()) {
             throw new ParamNotFound(String.format("Id %s not found in testimonials", id));
         }
         return testimonialMapper.toDto(entity.get());

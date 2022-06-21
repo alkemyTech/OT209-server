@@ -2,12 +2,9 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
-import com.alkemy.ong.models.entity.CategoryEntity;
 import com.alkemy.ong.models.entity.MemberEntity;
 import com.alkemy.ong.models.mapper.MemberMapper;
-import com.alkemy.ong.models.request.CategoryRequest;
 import com.alkemy.ong.models.request.MemberRequest;
-import com.alkemy.ong.models.response.CategoryResponse;
 import com.alkemy.ong.models.response.MemberBasicResponse;
 import com.alkemy.ong.models.response.MemberResponse;
 import com.alkemy.ong.repository.MemberRepository;
@@ -23,6 +20,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class MemberServiceImp implements MemberService {
+
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
@@ -37,6 +35,7 @@ public class MemberServiceImp implements MemberService {
 
         return memberMapper.memberEntity2DTO(entity);
     }
+
     @Override
     public List<MemberBasicResponse> getMembers() {
         List<MemberEntity> entities = memberRepository.findAll();
@@ -44,23 +43,26 @@ public class MemberServiceImp implements MemberService {
 
         return dtos;
     }
+
     @Override
     public boolean itExists(Long id) {
         return memberRepository.findById(id).isPresent();
     }
+
     @Override
     public MemberResponse update(Long id, MemberRequest member) {
         Optional<MemberEntity> entity = memberRepository.findById(id);
-        if(!entity.isPresent()) {
+        if (!entity.isPresent()) {
             throw new ParamNotFound("Id not found");
         }
         memberMapper.memberEntityRefreshValues(entity.get(), member);
         MemberEntity entityUpdated = memberRepository.save(entity.get());
         return memberMapper.memberEntity2DTO(entityUpdated);
     }
+
     @Override
-    public void delete(Long id)throws NotFoundException {
-        if(memberRepository.findById(id).isEmpty()) {
+    public void delete(Long id) throws NotFoundException {
+        if (memberRepository.findById(id).isEmpty()) {
             throw new ParamNotFound("Id not found");
         }
         memberRepository.deleteById(id);

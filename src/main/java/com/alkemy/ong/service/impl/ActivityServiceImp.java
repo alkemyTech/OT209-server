@@ -10,17 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
 @Service
 public class ActivityServiceImp implements ActivityService {
+
     @Autowired
     private ActivityRepository activityRepository;
     @Autowired
     private ActivityMapper activityMapper;
 
     @Override
-    public boolean itExists(Long id){
+    public boolean itExists(Long id) {
         return activityRepository.findById(id).isPresent();
     }
 

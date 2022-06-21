@@ -6,7 +6,6 @@ import com.alkemy.ong.models.request.SlideGetDTO;
 import com.alkemy.ong.models.request.SlideRequestDTO;
 import com.alkemy.ong.models.response.SlideBasicResponse;
 import com.alkemy.ong.models.response.SlideResponse;
-
 import java.io.IOException;
 import java.util.List;
 

@@ -9,8 +9,6 @@ import com.sendgrid.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class ContactServiceImpl implements ContactService {
     ContactMapper mapper;
 
     @Override
-    public void add(ContactRequest request) throws IOException{
+    public void add(ContactRequest request) throws IOException {
 
         repository.save(mapper.request2Entity(request));
         sendContactRecievedMail(request);
@@ -45,16 +43,12 @@ public class ContactServiceImpl implements ContactService {
         Content content = new Content("text/plain",
                 "Thank you, " + contactRequest.getName() + ", for registering at Somos Más! We'll be getting in touch soon!");
         Mail mail = new Mail(from, subject, to, content);
-
         SendGrid sg = new SendGrid(env.getProperty("API_KEY"));
-
         Request request = new Request();
         request.setMethod(Method.POST);
         request.setEndpoint("mail/send");
-        request.setBody(mail.build());
-        //Response response = sg.api(request);
+        request.setBody(mail.build()); 
         System.out.println(sg.api(request).getBody());
 
-        //return response.getBody();
     }
 }

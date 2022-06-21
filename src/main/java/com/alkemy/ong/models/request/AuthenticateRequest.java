@@ -2,7 +2,6 @@ package com.alkemy.ong.models.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
