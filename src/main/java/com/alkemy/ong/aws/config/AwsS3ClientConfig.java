@@ -22,6 +22,12 @@ public class AwsS3ClientConfig {
 	private String secretKey;
 	@Value("${amazonProperties.region}")
 	private String region;
+	@Value("${amazonProperties.bucketName}")
+	private String bucketName;
+	
+	public String getBucketName() {
+		return this.bucketName;
+	}
 	@Bean
 	public AmazonS3 s3client() {
 		BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
