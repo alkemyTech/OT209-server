@@ -1,6 +1,6 @@
 amazonProperties:
-  endpointUrl: https://s3.us-east-1.amazonaws.com
-  accessKey: AKIAS2JWQJCDPYY77JXE
-  secretKey: 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
-  bucketName: cohorte-mayo-2820e45d
-  region: us-east-1
+  endpointUrl: 
+  accessKey: 
+  secretKey: 
+  bucketName: 
+  region: 

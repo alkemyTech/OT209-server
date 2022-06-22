@@ -3,11 +3,17 @@
 
 ## El equipo de Desarrollo 🖥️
 
+**MENTOR:**
+* **Francisco Mastucci** - [LinkedIn](https://www.linkedin.com/in/franmastucci/) - [GitHub](https://github.com/franmastucci)
+
+**INTEGRANTES:**
 * **Gabriel Navarro** - [LinkedIn](https://linkedin.com/in/gabriel-navarro-233388219 ) - [GitHub](https://github.com/gabynavarro)
 * **Pablo Leyes** - [LinkedIn](https://www.linkedin.com/in/pablo-nahuel-leyes-989b71211/) - [GitHub](https://github.com/Yaguaret3)
-* **otro ** - [LinkedIn]() - [GitHub]()
-* **otro ** - [LinkedIn]() - [GitHub]()
-* **otro ** - [LinkedIn]() - [GitHub]()
+* **José Luis Ignacio** - [LinkedIn](https://www.linkedin.com/in/joseluis-ignacio98/) - [GitHub](https://github.com/Ignacio-JL)
+* **Adrián Fernández Rosa** - [LinkedIn](https://www.linkedin.com/in/adrian-fernandez-rosa/) - [GitHub](https://github.com/Adrian-Fernandez-Rosa)
+* **Luciano Isa** - [LinkedIn](https://www.linkedin.com/in/luciano-isa) - [GitHub](https://github.com/LucianoIsa)
+* **Connie Ansaldi** - [LinkedIn](https://www.linkedin.com/in/connie-ansaldi-2495ba18b/) - [GitHub](https://github.com/UserAnonn)
+* **Matias Solari** - [LinkedIn](https://www.linkedin.com/in/matias-solari-6377581ba/) - [GitHub](https://github.com/solariMatias)
 
 ## ESTE PROYECTO ES PARTE DE LA ACELERACIÓN DE [ALKEMY](https://www.alkemy.org/) ❤️
 
