@@ -1,19 +1,19 @@
 {
 	"info": {
-		"_postman_id": "1d4ddbc1-d9c0-4d91-b494-b5c6af86e47c",
+		"_postman_id": "aba58788-6db1-4d6d-8b11-679c6557f052",
 		"name": "Slides",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create Slide",
+			"name": "Create slide",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTQ4NzE2MDMsImV4cCI6MTY1NDkzMjA4M30.xQDbFb-UuZAkCot3vQIT3UKYms-z0YEFkIaXAlFCQuHVRymYKfPENmyAT5Nr2LKcsoRlqCess9XLxzUQtkhSVg",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTU5Mzk4NjUsImV4cCI6MTY1NjAwMDM0NX0.i94-esxtbYE4Hq9yZGEvGAvduYU9iO-TcLrPFmyh6_GRZJZZ9ydxfSW5T1SNqX-_wY6ND1Mp0LPxtRTQXV7nGg",
 							"type": "string"
 						}
 					]
@@ -22,7 +22,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"imageUrl\": \"ksjhfkhagkjehklghaerlkjghakejrg\",\r\n    \"order\":1,\r\n    \"text\": \"khajg ahdahg jkkfghakreh jhgkaljh kjahga\",\r\n    \"organizationId\":1,\r\n    \"encodeImg\":\"jkfgjskhkshbkshfgkshdfkghdfkjhdgkjh\"\r\n}",
+					"raw": "{\r\n    \"imageUrl\":\".jpg\",\r\n    \"order\":10011,\r\n    \"text\":\"hola\",\r\n    \"organizationId\":2,\r\n    \"encodeImg\":\"UTF-8\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -30,7 +30,45 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/Slides/",
+					"raw": "http://localhost:8080/Slides",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Slides"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update slide",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTU5Mzk4NjUsImV4cCI6MTY1NjAwMDM0NX0.i94-esxtbYE4Hq9yZGEvGAvduYU9iO-TcLrPFmyh6_GRZJZZ9ydxfSW5T1SNqX-_wY6ND1Mp0LPxtRTQXV7nGg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"imageUrl\":\"https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg\",\r\n    \"order\":55555,\r\n    \"text\":\"actualizado\",\r\n    \"organizationId\":1,\r\n    \"encodeImg\":\"UTF-8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/Slides/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -38,25 +76,98 @@
 					"port": "8080",
 					"path": [
 						"Slides",
-						""
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update Slide",
+			"name": "Delete slide",
 			"request": {
-				"method": "GET",
-				"header": []
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTU5Mzk4NjUsImV4cCI6MTY1NjAwMDM0NX0.i94-esxtbYE4Hq9yZGEvGAvduYU9iO-TcLrPFmyh6_GRZJZZ9ydxfSW5T1SNqX-_wY6ND1Mp0LPxtRTQXV7nGg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Slides/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Slides",
+						"3"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete Slide",
+			"name": "Get slides",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTU5Mzk4NjUsImV4cCI6MTY1NjAwMDM0NX0.i94-esxtbYE4Hq9yZGEvGAvduYU9iO-TcLrPFmyh6_GRZJZZ9ydxfSW5T1SNqX-_wY6ND1Mp0LPxtRTQXV7nGg",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Slides",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Slides"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get slide detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXRyaS1lbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2NTU5Mzk4NjUsImV4cCI6MTY1NjAwMDM0NX0.i94-esxtbYE4Hq9yZGEvGAvduYU9iO-TcLrPFmyh6_GRZJZZ9ydxfSW5T1SNqX-_wY6ND1Mp0LPxtRTQXV7nGg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Slides/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Slides",
+						"1"
+					]
+				}
 			},
 			"response": []
 		}
