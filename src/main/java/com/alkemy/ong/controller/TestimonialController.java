@@ -71,7 +71,7 @@ public class TestimonialController {
         testimonialService.delete(id);
     }
 
-    @GetMapping
+    @GetMapping()
     @ApiOperation(value = "Get All Testimonials", notes = "Returns all Testimonials")
     @ApiResponses({
         @ApiResponse(code = 200, message = "Returns all Testimonials")

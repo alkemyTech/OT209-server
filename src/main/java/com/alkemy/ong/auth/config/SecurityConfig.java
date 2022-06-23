@@ -94,9 +94,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                 .antMatchers(HttpMethod.DELETE, "/news/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                 //Testimonials
-                .antMatchers(HttpMethod.POST, "/testimonials").permitAll()
-                .antMatchers(HttpMethod.PUT, "/testimonials/{id}").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/testimonials/{id}").permitAll()
+                .antMatchers(HttpMethod.POST, "/testimonials").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.PUT, "/testimonials/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.DELETE, "/testimonials/{id}").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                 //activities
                 .antMatchers(HttpMethod.PUT, "/ong/activities/{id}").hasRole((RoleEnum.ADMIN.getSimpleRoleName()))
                 //commnets
