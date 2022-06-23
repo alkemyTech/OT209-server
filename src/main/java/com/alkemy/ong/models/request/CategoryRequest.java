@@ -15,7 +15,7 @@ import lombok.Setter;
 @ApiModel(value = "Category Request", description = "Format for creating and updating categories")
 public class CategoryRequest {
 	
-	@NotBlank
+	@NotBlank(message = "the name can't be blank")
 	@NotNull(message = "the name can't be null")
 	@NotEmpty(message = "the name can't be empty")
 	@Column(nullable = false)

@@ -37,7 +37,7 @@ public class CategoryEntity {
 	@Column(name = "category_id")
 	private Long id;
 	
-	@NotBlank
+	@NotBlank(message = "the name can't be blank")
 	@NotNull(message = "the name can't be null")
 	@NotEmpty(message = "the name can't be empty")
 	@ApiModelProperty("Name category")
