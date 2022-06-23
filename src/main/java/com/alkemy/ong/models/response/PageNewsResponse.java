@@ -16,7 +16,7 @@ public class PageNewsResponse {
 
     @ApiModelProperty(name = "Page",
             value = "Page of news")
-    private List<NewsBasicResponse> news;
+    private List<NewsResponse> news;
 
     @ApiModelProperty(name = "Previous Page",
             value = "Previous Page",

@@ -37,7 +37,7 @@ public class NewsServiceImpl implements NewsService {
 
         System.out.println(newsRepository.findAll());
 
-        List<NewsBasicResponse> dtos = newsMapper.newsEntityList2NewsBasicResponseList(dataPage.getContent());
+        List<NewsResponse> dtos = newsMapper.newsEntityList2NewsBasicResponseList(dataPage.getContent());
 
         PaginationHelper uriUtil = new PaginationHelper(uriComponentsBuilder, dataPage.getTotalPages(), offset);
 
@@ -45,18 +45,18 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsDetailsResponse getById(Long id) {
+    public NewsResponse getById(Long id) {
         return newsMapper.newsEntity2NewsResponse(newsRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                 "the searched news does not exist")));
     }
 
     @Override
-    public NewsDetailsResponse create(NewsRequest request) {
+    public NewsResponse create(NewsRequest request) {
         return newsMapper.newsEntity2NewsResponse(newsRepository.save(newsMapper.newsRequest2NewsEntity(request)));
     }
 
     @Override
-    public NewsDetailsResponse updateById(Long id, NewsRequest request) {
+    public NewsResponse updateById(Long id, NewsRequest request) {
         NewsEntity entity = newsRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                 "the searched news does not exist"));
         return newsMapper.newsEntity2NewsResponse(newsRepository.save(newsMapper.updateNewsEntityWithNewsRequest(entity, request)));
