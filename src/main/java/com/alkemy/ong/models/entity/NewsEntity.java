@@ -58,7 +58,7 @@ public class NewsEntity {
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "category_id", insertable = false, updatable = false)
-        @ApiModelProperty("Relationship category with news")
+    @ApiModelProperty("Relationship category with news")
 	private CategoryEntity category;
 	//?
 	@Column(name = "category_id", nullable = false)

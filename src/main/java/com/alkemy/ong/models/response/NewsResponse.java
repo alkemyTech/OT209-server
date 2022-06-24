@@ -2,16 +2,21 @@ package com.alkemy.ong.models.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import java.sql.Timestamp;
+
 @Getter
 @Setter
-@ApiModel(value = "News Response (Basic)", description = "Response with some properties of the requested news")
-public class NewsBasicResponse {
+@Builder
+@ApiModel(value = "News Response (Details)", description = "Response with the requested news details")
+public class NewsResponse {
 
     @ApiModelProperty(name = "ID",
-            value = "News ID",
+            value = "ID of the news",
             dataType = "Long",
             example = "1")
     private Long id;
@@ -28,15 +33,20 @@ public class NewsBasicResponse {
             example = "Lorem Ipsum...")
     private String content;
 
-    @ApiModelProperty(name = "Category",
-            value = "Category at which the news belongs",
+    @ApiModelProperty(name = "Image",
+            value = "Emblematic mage associated with the news",
             dataType = "String",
-            example = "Events")
+            example = "image0001.jpg")
     private String image;
 
-    @ApiModelProperty(name = "Category",
+    @ApiModelProperty(name = "Category ID",
             value = "Category at which the news belongs",
             dataType = "String",
             example = "Events")
-    private String category;
+    private Long categoryId;
+
+    @ApiModelProperty(name = "Timestamp",
+            value = "Last time it was edited",
+            dataType = "Timestamp")
+    private Timestamp timestamp;
 }

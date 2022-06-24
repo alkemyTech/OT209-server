@@ -28,8 +28,7 @@ public class MemberController {
     @Autowired
     private final MemberService memberService;
 
-    @PostMapping("/create")
-
+    @PostMapping()
     @ApiOperation(value = "Create Member", notes = "Allows user to insert Members")
     @ApiResponses({
         @ApiResponse(code = 201, message = "Members created!")
@@ -50,7 +49,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/list")
+    @GetMapping
     @ApiOperation(value = "Get Members", notes = "Returns all details of Members")
     @ApiResponses({
         @ApiResponse(code = 200, message = "Return the requested news"),
@@ -60,7 +59,7 @@ public class MemberController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     @ApiOperation(value = "Update Member By ID", notes = "Allows user to update an existing members by ID")
     @ApiResponses({
         @ApiResponse(code = 200, message = "News updated!"),
@@ -75,7 +74,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping(value = "/delete/{id}", produces = {"application/json"})
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "Soft Delete member By ID", notes = "Allows user to delete member by ID")
     @ApiResponses({
         @ApiResponse(code = 204, message = "News soft deleted!"),

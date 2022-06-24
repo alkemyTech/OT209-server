@@ -47,7 +47,7 @@ public class NewsController {
     @ApiResponses({
         @ApiResponse(code = 200, message = "Return the requested news"),
         @ApiResponse(code = 404, message = "No news with requested ID is found"),})
-    public ResponseEntity<NewsDetailsResponse> read(@PathVariable
+    public ResponseEntity<NewsResponse> read(@PathVariable
             @ApiParam(
                     name = "id",
                     type = "Long",
@@ -66,7 +66,7 @@ public class NewsController {
     @ApiResponses({
         @ApiResponse(code = 201, message = "News created!")
     })
-    public ResponseEntity<NewsDetailsResponse> create(@Valid @RequestBody
+    public ResponseEntity<NewsResponse> create(@Valid @RequestBody
             @ApiParam(
                     name = "New News",
                     value = "News to save",
@@ -80,14 +80,14 @@ public class NewsController {
     @ApiResponses({
         @ApiResponse(code = 200, message = "News updated!"),
         @ApiResponse(code = 404, message = "No news with requested ID is found"),})
-    public ResponseEntity<NewsDetailsResponse> update(@PathVariable
+    public ResponseEntity<NewsResponse> update(@PathVariable
             @ApiParam(
                     name = "id",
                     type = "Long",
                     value = "ID of the news requested",
                     example = "1",
                     required = true) Long id,
-            @Valid @RequestBody
+                                               @Valid @RequestBody
             @ApiParam(
                     name = "New News",
                     value = "News to save",

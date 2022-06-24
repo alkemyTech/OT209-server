@@ -1,5 +1,6 @@
 package com.alkemy.ong.models.request;
 
+import com.alkemy.ong.models.response.CategoryResponse;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -49,7 +50,7 @@ public class NewsRequest {
     @NotNull(message = "CategoryId can't be null")
     @ApiModelProperty(name = "Name",
                         value = "ID of the category at which the news belongs",
-                        dataType = "Long",
+                        dataType = "Category Object",
                         notes = "It can't be null",
                         example = "1",
                         required = true)

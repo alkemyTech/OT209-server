@@ -21,12 +21,12 @@ public class SwaggerConfig {
 
 
     public static final String TESTIMONIAL_CONTROLLER= "Testimonial!";
-	  public static final String CATEGORY_CONTROLLER = "Category!";
+	public static final String CATEGORY_CONTROLLER = "Category!";
     public static final String NEWS_CONTROLLER = "News!";
     public static final String USER_CONTROLLER = "Users!";
     public static final String AUTH_CONTROLLER = "Authentication!";
     public static final String MEMBER_CONTROLLER = "Member!";
-
+    public static final String SLIDES_CONTROLLER = "Slides!";
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -44,7 +44,8 @@ public class SwaggerConfig {
                 .tags(new Tag(AUTH_CONTROLLER, "Service for creating, authenticate and retrieve users"))
                 .tags(new Tag(USER_CONTROLLER, "Service for update. delete and retrieve all users data"))
                 .tags(new Tag(CATEGORY_CONTROLLER, "Services for creating, reading, updating and deleting categories"))
-                .tags(new Tag(NEWS_CONTROLLER, "Services for creating, reading, updating and deleting news"));
+                .tags(new Tag(NEWS_CONTROLLER, "Services for creating, reading, updating and deleting news"))
+                .tags(new Tag(SLIDES_CONTROLLER, "Service for create, update, delete and list slides"));
 
     }
   
