@@ -49,10 +49,12 @@ public class TestimonialMapper {
 
         for (Testimonial testimonialEntity : entities) {
             TestimonialResponse basicDto = new TestimonialResponse();
+            basicDto.setId(testimonialEntity.getId());
             basicDto.setName(testimonialEntity.getName());
             basicDto.setImage(testimonialEntity.getImage());
             basicDto.setContent(testimonialEntity.getContent());
-            //basicDto.setDate(testimonialEntity.getDate().toLocalDate());
+            basicDto.setDate(testimonialEntity.getDate().toLocalDate());
+            basicDto.setHour(testimonialEntity.getDate().toLocalTime());
             dtos.add(basicDto);
 
         }
