@@ -84,12 +84,12 @@ public class CategoryController {
         @ApiResponse(code = 201, message = "Category created!")
     })
     public ResponseEntity<CategoryResponse> save(
-            @Valid
+            
             @RequestBody
             @ApiParam(
                     name = "New Category",
                     value = "Category to save",
-                    required = true) CategoryRequest categoryRequest
+                    required = true) @Valid CategoryRequest categoryRequest
     ) {
         CategoryResponse response = categoryService.saveCategory(categoryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

@@ -42,7 +42,7 @@ public class TestimonialController {
         @ApiResponse(code = 404, message = "No Testimonial with requested ID is found"),})
     public TestimonialResponse update(@PathVariable
             @ApiParam(
-                    name = "ID",
+                    name = "id",
                     type = "Long",
                     value = "ID of the testimonial requested",
                     example = "1",
@@ -63,7 +63,7 @@ public class TestimonialController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable
             @ApiParam(
-                    name = "ID",
+                    name = "id",
                     type = "Long",
                     value = "ID of the testimonial requested",
                     example = "1",
@@ -79,7 +79,7 @@ public class TestimonialController {
     public ResponseEntity<PageTestimonialResponse> getAll(
             @RequestParam(value = "page")
             @ApiParam(
-                    name = "Page #",
+                    name = "page",
                     type = "Integer",
                     value = "Page requested from the list of testimonial (starting in 1)",
                     example = "1",
@@ -98,7 +98,7 @@ public class TestimonialController {
         @ApiResponse(code = 404, message = "No testimonials with requested ID is found"),})
     public ResponseEntity<TestimonialResponse> getDetail(@PathVariable
             @ApiParam(
-                    name = "ID",
+                    name = "id",
                     type = "Long",
                     value = "ID of the testimonial requested",
                     example = "1",

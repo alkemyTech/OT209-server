@@ -37,7 +37,7 @@ public class SlideRequestDTO {
             dataType = "long",
             example = "1")
     @NotNull(message = "Organization id is mandatory")
-    private long organizationId;
+    private Long organizationId;
 
 	@ApiModelProperty(name = "encodeImg",
             value = "encoded image on base64",
