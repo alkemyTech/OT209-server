@@ -15,7 +15,7 @@ public class SlideRequestDTO {
     private String text;
 
     @NotNull(message = "Organization id is mandatory")
-    private long organizationId;
+    private Long organizationId;
 
 
     @NotBlank(message = "Encode is mandatory")
