@@ -7,18 +7,23 @@ import com.alkemy.ong.models.request.TestimonialRequest;
 import com.alkemy.ong.models.response.PageTestimonialResponse;
 import com.alkemy.ong.models.response.TestimonialResponse;
 import com.alkemy.ong.repository.TestimonialRepository;
+import com.alkemy.ong.service.AmazonClient;
 import com.alkemy.ong.service.TestimonialService;
 import javax.transaction.Transactional;
 import com.alkemy.ong.utility.PaginationHelper;
+import com.alkemy.ong.utils.ImageHelper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class TestimonialServiceImpl implements TestimonialService {
@@ -27,6 +32,10 @@ public class TestimonialServiceImpl implements TestimonialService {
     private TestimonialRepository testimonialRepository;
     @Autowired
     private TestimonialMapper testimonialMapper;
+    @Autowired
+    private ImageHelper imageHelper;
+    @Autowired
+    private AmazonClient amazonClient;
 
     @Transactional
     @Override
@@ -43,7 +52,13 @@ public class TestimonialServiceImpl implements TestimonialService {
                     || request.getContent().isBlank() || request.getContent().isEmpty()) {
                 throw new RuntimeException("does not support blank name or content");
             }
+            String nameFile = "testimonial_" + request.getName() + new Random().longs().toString()+".png";
+            MultipartFile multiparte = imageHelper.base64ToImage(request.getImage(), nameFile);
+            String amazonUrl = amazonClient.uploadFile(multiparte);
+            request.setImage(amazonUrl);
+
             return testimonialMapper.toDto(testimonialRepository.save(testimonialMapper.toTestimonial(request)));
+
         } catch (Exception e) {
 
             throw new RuntimeException("error trying to save" + e.getMessage());

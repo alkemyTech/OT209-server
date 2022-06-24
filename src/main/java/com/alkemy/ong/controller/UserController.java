@@ -28,7 +28,7 @@ public class UserController {
         @ApiResponse(code = 204, message = "NO CONTENT - User updated", response = UserResponse.class),
         @ApiResponse(code = 404, message = "NOT FOUND - User not found")})
     @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public UserResponse update(@Valid @PathVariable Long id, @RequestBody UserRequest request) {
         return userService.update(id, request);
     }
