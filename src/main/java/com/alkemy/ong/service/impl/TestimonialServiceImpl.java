@@ -68,6 +68,14 @@ public class TestimonialServiceImpl implements TestimonialService {
     @Transactional
     @Override
     public TestimonialResponse update(Long id, TestimonialRequest request) {
+    	String nameFile = "testimonial_" + request.getName() + new Random().longs().toString()+".png";
+    	try {
+    		MultipartFile multiparte = imageHelper.base64ToImage(request.getImage(), nameFile);
+    		String amazonUrl = amazonClient.uploadFile(multiparte);
+    		request.setImage(amazonUrl);			
+		} catch (Exception e) {
+			throw new RuntimeException("error trying to save" + e.getMessage());
+		}
         Testimonial tSaved = testimonialRepository.save(testimonialMapper.updateDto(findById(id), request));
         return testimonialMapper.toDto(tSaved);
     }
