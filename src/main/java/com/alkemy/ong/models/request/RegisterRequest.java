@@ -3,6 +3,7 @@ package com.alkemy.ong.models.request;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +20,7 @@ public class RegisterRequest {
 		value = "User fisr name",
 		dataType = "String",
 		example = "Mario")
-	@NonNull
+	@NotNull
 	@NotEmpty(message = "the name can't be null")
 	@NotBlank(message = "the name can't  be blank")
 	private String firstName;
@@ -28,7 +29,7 @@ public class RegisterRequest {
 		value = "User last name",
 		dataType = "String",
 		example = "Santos")
-	@NonNull
+	@NotNull
 	@NotEmpty(message = "the lastName can't be null")
 	@NotBlank(message = "the lastName can't  be blank")
 	private String lastName;
@@ -45,7 +46,7 @@ public class RegisterRequest {
 		value = "User password",
 		dataType = "String",
 		example = "mario123")
-	@NonNull
+	@NotNull
 	@NotEmpty(message = "the password can't be null")
 	private String password;
 }
