@@ -1,0 +1,6 @@
+amazonProperties:
+  endpointUrl: "${endpointUrl}"
+  accessKey: "${accessKey}"
+  secretKey: "${secretKey}"
+  bucketName: "${bucketName}"
+  region: "${region}"
