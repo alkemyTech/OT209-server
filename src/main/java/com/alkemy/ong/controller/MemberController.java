@@ -38,7 +38,8 @@ public class MemberController {
             value = "Member to save",
             required = true) MemberRequest memberRequest) {
 
-        boolean responseName = (memberRequest.getName()).matches("(^[[a-zA-Z]+(\\-|\\ )?]+)$");
+        boolean responseName = (memberRequest.getName()).matches("/^[a-zA-Z\\u00C0-\\u017F]+$/");
+
         MemberResponse response = null;
         if (responseName) {
             response = memberService.create(memberRequest);
